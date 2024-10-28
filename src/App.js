@@ -1,23 +1,16 @@
-import './App.css';
+import styled from 'styled-components';
 
-function App() {
+const Div = styled.div`
+	font-size: 2rem;
+	text-align: center;
+	background-color: #282c34;
+`;
+
+export const App = () => {
 	return (
-		<div className='App'>
-			<header className='App-header'>
-				<p>
-					Edit <code>src/App.js</code> and save to reload.
-				</p>
-				<a
-					className='App-link'
-					href='https://reactjs.org'
-					target='_blank'
-					rel='noopener noreferrer'
-				>
-					Learn React
-				</a>
-			</header>
-		</div>
+		<>
+			<i className='fa fa-camera-retro'>Font-awesome test</i>
+			<Div>Styled-components test</Div>
+		</>
 	);
-}
-
-export default App;
+};
