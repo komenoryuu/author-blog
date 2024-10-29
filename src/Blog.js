@@ -1,13 +1,14 @@
 import { Route, Routes } from 'react-router-dom';
+import { Header } from './components';
 import styled from 'styled-components';
 
 const Container = styled.div`
-	height: 100vh;
-	text-align: center;
-`;
-
-const Header = styled.div`
-	padding: 24px 0px;
+	min-height: 100vh;
+	max-width: 90vw;
+	margin: 0 auto;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
 `;
 
 const Content = styled.div`
@@ -21,7 +22,7 @@ const Footer = styled.div`
 export const Blog = () => {
 	return (
 		<Container>
-			<Header>Шапка</Header>
+			<Header />
 			<Content>
 				<Routes>
 					<Route path='/' element={<div>Главная страница</div>} />
