@@ -1,5 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
-import { Header } from './components';
+import { Header, Footer } from './components';
 import styled from 'styled-components';
 
 const Container = styled.div`
@@ -13,10 +13,6 @@ const Container = styled.div`
 
 const Content = styled.div`
 	padding: 24px 0px;
-`;
-
-const Footer = styled.div`
-	padding: 64px 0px 24px 0px;
 `;
 
 export const Blog = () => {
