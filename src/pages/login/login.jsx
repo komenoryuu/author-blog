@@ -1,13 +1,15 @@
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useDispatch, useStore } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { useDispatch, useStore, useSelector } from 'react-redux';
+import { Link, Navigate } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { server } from '../../bff';
 import { Input, Button, H2 } from '../../shared';
 import { setUser } from '../../action';
+import { selectRole } from '../../selectors';
 import styled from 'styled-components';
+import { ROLE } from '../../constants';
 
 const ErrorMessage = styled.div`
 	color: #ff0000;
@@ -68,6 +70,7 @@ const LoginContainer = ({ className }) => {
 	const [serverError, setServerError] = useState(null);
 	const dispatch = useDispatch();
 	const store = useStore();
+	const currentRole = useSelector(selectRole);
 
 	useEffect(() => {
 		let currentWasLogout = store.getState().app.wasLogout;
@@ -94,6 +97,10 @@ const LoginContainer = ({ className }) => {
 	const schemaError = errors?.login?.message || errors?.password?.message;
 	const errorMessage = schemaError || serverError;
 
+	if (currentRole !== ROLE.GUEST) {
+		return <Navigate to='/' />;
+	}
+
 	return (
 		<div className={className}>
 			<H2>Авторизация</H2>
@@ -114,7 +121,7 @@ const LoginContainer = ({ className }) => {
 					})}
 				/>
 				<Button type='submit' disabled={!!schemaError}>
-					<Link to='/'>Войти</Link>
+					Войти
 				</Button>
 				<Register>
 					Нет аккаунта?{' '}
