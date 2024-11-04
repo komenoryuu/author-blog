@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, Navigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { useResetForm } from '../../hooks';
@@ -12,27 +12,32 @@ import { selectRole } from '../../selectors';
 import { ROLE } from '../../constants';
 import styled from 'styled-components';
 
-const Register = styled.div`
-	text-align: center;
-	font-size: 1.1rem;
-`;
-
-const RegisterLink = styled(Link)`
-	font-size: 1.1rem;
-	color: #7f56d9;
-	text-decoration: underline;
-	transition: all 0.3s;
-	&:hover {
-		color: #6027db;
-	}
-`;
-
-const loginSchema = yup.object().shape({
-	login: yup.string().required('Логин обязателен'),
-	password: yup.string().required('Пароль обязателен'),
+const registerSchema = yup.object().shape({
+	login: yup
+		.string()
+		.required('Логин обязателен')
+		.matches(
+			/^[!?,a-zA-Zа-яА-ЯёЁ0-9]+$/,
+			'Логин должен содержать только буквы и цифры',
+		)
+		.min(3, 'Логин должен состоять минимум из 3 символов')
+		.max(20, 'Логин должен содержать не больше 20 символов'),
+	password: yup
+		.string()
+		.required('Пароль обязателен')
+		.matches(
+			/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$/,
+			'Пароль должен содержать строчные и прописные латинские буквы, цифры',
+		)
+		.min(6, 'Пароль должен состоять минимум из 6 символов')
+		.max(30, 'Пароль должен содержать не больше 30 символов'),
+	passwordCheck: yup
+		.string()
+		.required('Повторите пароль')
+		.oneOf([yup.ref('password')], 'Повтор пароля введён неверно'),
 });
 
-const LoginContainer = ({ className }) => {
+const RegisterContainer = ({ className }) => {
 	const {
 		register,
 		reset,
@@ -42,8 +47,9 @@ const LoginContainer = ({ className }) => {
 		defaultValues: {
 			login: '',
 			password: '',
+			passwordCheck: '',
 		},
-		resolver: yupResolver(loginSchema),
+		resolver: yupResolver(registerSchema),
 	});
 
 	const [serverError, setServerError] = useState(null);
@@ -53,7 +59,7 @@ const LoginContainer = ({ className }) => {
 	useResetForm(reset);
 
 	const onSubmit = ({ login, password }) => {
-		server.authorize(login, password).then(({ error, response }) => {
+		server.register(login, password).then(({ error, response }) => {
 			if (error) {
 				setServerError(error);
 			} else {
@@ -62,7 +68,10 @@ const LoginContainer = ({ className }) => {
 		});
 	};
 
-	const errorSchema = errors?.login?.message || errors?.password?.message;
+	const errorSchema =
+		errors?.login?.message ||
+		errors?.password?.message ||
+		errors?.passwordCheck?.message;
 	const errorMessage = errorSchema || serverError;
 
 	if (currentRole !== ROLE.GUEST) {
@@ -71,7 +80,7 @@ const LoginContainer = ({ className }) => {
 
 	return (
 		<div className={className}>
-			<H2>Авторизация</H2>
+			<H2>Регистрация</H2>
 			<form onSubmit={handleSubmit(onSubmit)}>
 				{errorMessage && (
 					<FormErrorMessage>{errorMessage}</FormErrorMessage>
@@ -90,21 +99,22 @@ const LoginContainer = ({ className }) => {
 						onChange: () => setServerError(null),
 					})}
 				/>
+				<Input
+					type='password'
+					placeholder='Повтор пароля...'
+					{...register('passwordCheck', {
+						onChange: () => setServerError(null),
+					})}
+				/>
 				<Button type='submit' disabled={!!errorMessage}>
-					Войти
+					Зарегистрироваться
 				</Button>
-				<Register>
-					Нет аккаунта?{' '}
-					<RegisterLink to='/register'>
-						Зарегистрироваться
-					</RegisterLink>
-				</Register>
 			</form>
 		</div>
 	);
 };
 
-export const Login = styled(LoginContainer)`
+export const Register = styled(RegisterContainer)`
 	display: flex;
 	flex-direction: column;
 	align-items: center;

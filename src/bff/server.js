@@ -5,7 +5,6 @@ import { sessions } from './sessions';
 export const server = {
 	async authorize(authLogin, authPassword) {
 		const user = await getUser(authLogin);
-		const { id, login, roleId } = user;
 
 		if (!user) {
 			return {
@@ -25,33 +24,32 @@ export const server = {
 			return {
 				error: null,
 				response: {
-					id,
-					login,
-					roleId,
+					id: user.id,
+					login: user.login,
+					roleId: user.roleId,
 					session: sessions.create(user),
 				},
 			};
 		}
 	},
 	async register(regLogin, regPassword) {
-		const user = await getUser(regLogin);
-		const { id, login, roleId } = user;
+		const existedUser = await getUser(regLogin);
 
-		if (user) {
+		if (existedUser) {
 			return {
 				error: 'Такой логин уже занят',
 				response: null,
 			};
 		}
 
-		await createUser(regLogin, regPassword);
+		const user = await createUser(regLogin, regPassword);
 
 		return {
 			error: null,
 			response: {
-				id,
-				login,
-				roleId,
+				id: user.id,
+				login: user.login,
+				roleId: user.roleId,
 				session: sessions.create(user),
 			},
 		};
