@@ -11,7 +11,7 @@ const CopyrightContainer = ({ className }) => {
 
 	return (
 		<div className={className}>
-			<StyledSpan>Блог о веб разработке</StyledSpan>
+			<StyledSpan>Блог о веб-разработке</StyledSpan>
 			<span>© React Template {currentYear}. All Rights Reserved.</span>
 		</div>
 	);

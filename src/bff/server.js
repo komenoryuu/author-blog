@@ -1,6 +1,6 @@
 import { getUser } from './get-user';
 import { createUser } from './api';
-import { createSession } from './create-session';
+import { sessions } from './sessions';
 
 export const server = {
 	async authorize(authLogin, authPassword) {
@@ -23,25 +23,38 @@ export const server = {
 		if (user) {
 			return {
 				error: null,
-				response: createSession(user.role_id),
+				response: {
+					id: user.id,
+					login: user.login,
+					roleId: user.roleId,
+					session: sessions.create(user),
+				},
 			};
 		}
 	},
 	async register(regLogin, regPassword) {
-		const user = await getUser(regLogin);
+		const existedUser = await getUser(regLogin);
 
-		if (user) {
+		if (existedUser) {
 			return {
 				error: 'Такой логин уже занят',
 				response: null,
 			};
 		}
 
-		await createUser(regLogin, regPassword);
+		const user = await createUser(regLogin, regPassword);
 
 		return {
 			error: null,
-			response: createSession(user.role_id),
+			response: {
+				id: user.id,
+				login: user.login,
+				roleId: user.roleId,
+				session: sessions.create(user),
+			},
 		};
+	},
+	async logout(session) {
+		sessions.remove(session);
 	},
 };
