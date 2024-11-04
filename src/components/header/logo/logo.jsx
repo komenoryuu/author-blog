@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Icon } from '../../shared';
+import { Icon } from '../../../shared';
 import styled from 'styled-components';
 
 const LogoHeader = styled.div`

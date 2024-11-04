@@ -1,1 +1,1 @@
-export * from './bff';
+export * from './server';

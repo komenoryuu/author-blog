@@ -5,8 +5,25 @@ import styled from 'styled-components';
 const WeatherCity = styled.span`
 	display: flex;
 	align-items: center;
-	font-weight: 600;
 	gap: 5px;
+`;
+
+const Loader = styled.div`
+	width: fit-content;
+	font-size: 1.1rem;
+	padding-bottom: 5px;
+	background: linear-gradient(currentColor 0 0) 0 100%/0% 1px no-repeat;
+	animation: l2 2s linear infinite;
+
+	&:before {
+		content: 'Загрузка погоды...';
+	}
+
+	@keyframes l2 {
+		to {
+			background-size: 100% 1px;
+		}
+	}
 `;
 
 const WeatherContainer = ({ className }) => {
@@ -25,14 +42,16 @@ const WeatherContainer = ({ className }) => {
 	}, [userLocation]);
 
 	if (!weather) {
-		return <div>Loading weather...</div>;
+		return <Loader />;
 	}
 
 	return (
 		<div className={className}>
 			<div>
 				<WeatherCity>
-					{weather.city} <img src={weather.icon} alt='weatherIcon' />
+					<span style={{ fontWeight: 600 }}>{weather.city},</span>{' '}
+					{weather.weather}
+					<img src={weather.icon} alt='weatherIcon' />
 				</WeatherCity>
 			</div>
 			<div>
