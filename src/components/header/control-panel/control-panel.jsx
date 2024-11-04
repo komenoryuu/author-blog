@@ -54,8 +54,8 @@ const ControlPanelContainer = ({ className }) => {
 				</StyledLink>
 			</Nav>
 			{currentRole === ROLE.GUEST ? (
-				<Button width='118px'>
-					<Link to='/login'>Войти</Link>
+				<Button width='118px' onClick={() => navigate('/login')}>
+					Войти
 				</Button>
 			) : (
 				<UserLogin>
@@ -63,9 +63,12 @@ const ControlPanelContainer = ({ className }) => {
 					<Button
 						width='118px'
 						height='38px'
-						onClick={() => dispatch(logout(session))}
+						onClick={() => {
+							dispatch(logout(session));
+							navigate('/');
+						}}
 					>
-						<Link to='/'>Выйти</Link>
+						Выйти
 					</Button>
 				</UserLogin>
 			)}
