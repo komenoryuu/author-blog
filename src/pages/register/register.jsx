@@ -115,6 +115,7 @@ const RegisterContainer = ({ className }) => {
 };
 
 export const Register = styled(RegisterContainer)`
+	align-self: center;
 	display: flex;
 	flex-direction: column;
 	align-items: center;

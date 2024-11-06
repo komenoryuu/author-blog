@@ -12,6 +12,8 @@ const FooterConainer = ({ className }) => (
 );
 
 export const Footer = styled(FooterConainer)`
+	flex: 0 0 auto;
+	width: 100%;
 	height: 100px;
 	display: flex;
 	justify-content: space-between;

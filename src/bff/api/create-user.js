@@ -1,4 +1,4 @@
-const generateDate = () => new Intl.DateTimeFormat('ru').format(Date.now());
+import { generateDate } from '../utils';
 
 export const createUser = (login, password) =>
 	fetch('http://localhost:5000/users', {
@@ -7,7 +7,7 @@ export const createUser = (login, password) =>
 		body: JSON.stringify({
 			login,
 			password,
-			registed_at: generateDate(),
+			registered_date: generateDate(),
 			role_id: 2,
 		}),
 	}).then((createdUser) => createdUser.json());

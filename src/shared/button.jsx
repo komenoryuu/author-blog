@@ -16,6 +16,7 @@ export const Button = styled(ButtonContainer)`
 	align-items: center;
 	background-color: #7f56d9;
 	border: 3px solid #7f56d9;
+	box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 	border-radius: 8px;
 	color: #fff;
 	font-size: 1.2rem;

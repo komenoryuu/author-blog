@@ -53,7 +53,7 @@ const LoginContainer = ({ className }) => {
 	useResetForm(reset);
 
 	const onSubmit = ({ login, password }) => {
-		server.authorize(login, password).then(({ error, response }) => {
+		server.login(login, password).then(({ error, response }) => {
 			if (error) {
 				setServerError(error);
 			} else {
@@ -105,6 +105,7 @@ const LoginContainer = ({ className }) => {
 };
 
 export const Login = styled(LoginContainer)`
+	align-self: center;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
