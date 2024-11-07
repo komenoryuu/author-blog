@@ -12,7 +12,7 @@ const HeaderContainer = ({ className }) => (
 );
 
 export const Header = styled(HeaderContainer)`
-	height: 100px;
+	min-height: 100px;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;

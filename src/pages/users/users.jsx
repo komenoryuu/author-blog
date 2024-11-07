@@ -1,6 +1,11 @@
+import { useEffect, useState } from 'react';
+import { useServerRequest } from '../../hooks';
+import { Content } from '../../components';
 import { H2 } from '../../shared';
 import { UserRow } from './user-row';
+
 import styled from 'styled-components';
+import { ROLE } from '../../constants';
 
 const Th = styled.th`
 	padding: 12px;
@@ -8,39 +13,56 @@ const Th = styled.th`
 `;
 
 const UsersContainer = ({ className }) => {
-	const users = [
-		{
-			id: '001',
-			login: 'komenoryuu',
-			password: 'gohanDESU1234',
-			registered_date: '28.10.2024',
-			role_id: 0,
-		},
-	];
+	const [users, setUsers] = useState([]);
+	const [roles, setRoles] = useState([]);
+	const [errorMessage, setErrorMessage] = useState(null);
+	const requestServer = useServerRequest();
+
+	useEffect(() => {
+		Promise.all([
+			requestServer('fetchUsers'),
+			requestServer('fetchRoles'),
+		]).then(([usersResponse, rolesResponse]) => {
+			const error = usersResponse.error || rolesResponse.error;
+
+			if (error) {
+				setErrorMessage(error);
+				return;
+			}
+
+			setUsers(usersResponse.response);
+			setRoles(rolesResponse.response);
+		});
+	}, [requestServer]);
 
 	return (
 		<div className={className}>
-			<H2>Пользователи</H2>
-			<table>
-				<thead>
-					<tr>
-						<Th>Имя пользователя</Th>
-						<Th>Дата регистрации</Th>
-						<Th>Роль</Th>
-						<Th>Действия</Th>
-					</tr>
-				</thead>
-				<tbody>
-					{users.map(({ id, login, registered_date, role_id }) => (
-						<UserRow
-							key={id}
-							login={login}
-							registered_date={registered_date}
-							role_id={role_id}
-						/>
-					))}
-				</tbody>
-			</table>
+			<Content error={errorMessage}>
+				<H2>Пользователи</H2>
+				<table>
+					<thead>
+						<tr>
+							<Th>Имя пользователя</Th>
+							<Th>Дата регистрации</Th>
+							<Th>Роль</Th>
+							<Th>Действия</Th>
+						</tr>
+					</thead>
+					<tbody>
+						{users.map(({ id, login, registeredDate, roleId }) => (
+							<UserRow
+								key={id}
+								login={login}
+								registeredDate={registeredDate}
+								roleId={roleId}
+								roles={roles.filter(
+									({ id }) => Number(id) !== ROLE.GUEST,
+								)}
+							/>
+						))}
+					</tbody>
+				</table>
+			</Content>
 		</div>
 	);
 };

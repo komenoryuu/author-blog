@@ -1,6 +1,8 @@
 import { useDispatch } from 'react-redux';
 import { Button, Icon } from '../../../shared';
 import styled from 'styled-components';
+import { useState } from 'react';
+import { ROLE } from '../../../constants';
 
 const Wrapper = styled.div`
 	display: flex;
@@ -16,41 +18,39 @@ const Wrapper = styled.div`
 	}
 `;
 
-export const UserRowContainer = ({ className, login, registered_date, id }) => {
+export const UserRowContainer = ({
+	className,
+	login,
+	registeredDate,
+	roleId: userRoleId,
+	roles,
+}) => {
+	const [selectedRoleId, setSelectedRoleId] = useState(userRoleId);
 	const dispatch = useDispatch();
-	const onRoleChange = () => {};
-
-	const roles = [
-		{
-			id: '0',
-			name: 'Администратор',
-		},
-		{
-			id: '1',
-			name: 'Модератор',
-		},
-		{
-			id: '2',
-			name: 'Читатель',
-		},
-	];
+	const onRoleChange = ({ target }) =>
+		setSelectedRoleId(Number(target.value));
 
 	return (
 		<tr className={className}>
 			<td>{login}</td>
-			<td>{registered_date}</td>
+			<td>{registeredDate}</td>
 			<td>
 				<Wrapper>
-					<select value={id} onChange={() => onRoleChange()}>
+					<select
+						value={selectedRoleId}
+						onChange={(e) => onRoleChange(e)}
+					>
 						{roles.map(({ id: roleId, name: roleName }) => (
 							<option key={roleId} value={roleId}>
 								{roleName}
 							</option>
 						))}
 					</select>
-					<Button width='29px' height='29px'>
-						<Icon id='fa-check' size='1.3rem' />
-					</Button>
+					{userRoleId !== selectedRoleId && (
+						<Button width='29px' height='29px'>
+							<Icon id='fa-check' size='1.3rem' />
+						</Button>
+					)}
 				</Wrapper>
 			</td>
 			<td>

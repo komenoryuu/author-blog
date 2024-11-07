@@ -11,7 +11,7 @@ const Container = styled.div`
 	max-width: 90vw;
 `;
 
-const Content = styled.div`
+const Main = styled.main`
 	flex: 1 0 auto;
 	padding: 24px 0px;
 	display: flex;
@@ -22,7 +22,7 @@ export const Blog = () => {
 	return (
 		<Container>
 			<Header />
-			<Content>
+			<Main>
 				<Routes>
 					<Route path='/' element={<div>Главная страница</div>} />
 					<Route path='/login' element={<Login />} />
@@ -32,7 +32,7 @@ export const Blog = () => {
 					<Route path='/post/:post_id' element={<div>Статья</div>} />
 					<Route path='*' element={<div>Ошибка</div>} />
 				</Routes>
-			</Content>
+			</Main>
 			<Footer />
 		</Container>
 	);

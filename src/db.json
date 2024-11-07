@@ -1,11 +1,109 @@
 {
 	"users": [
 		{
-			"id": "001",
 			"login": "komenoryuu",
-			"password": "gohanDESU1234",
-			"registered_date": "28.10.2024",
-			"role_id": 0
+			"password": "gohanDESU123",
+			"registered_date": "07.11.2024",
+			"role_id": 0,
+			"id": 1
+		},
+		{
+			"login": "lechat",
+			"password": "lelele123LE",
+			"registered_date": "09.11.2024",
+			"role_id": 2,
+			"id": 2
+		},
+		{
+			"login": "knifekillgoeshere",
+			"password": "knifeKNIFE123",
+			"registered_date": "12.11.2024",
+			"role_id": 1,
+			"id": 3
+		},
+		{
+			"login": "WATASHI",
+			"password": "watashiWA123",
+			"registered_date": "21.11.2024",
+			"role_id": 2,
+			"id": 4
+		},
+		{
+			"login": "meowoshi",
+			"password": "meowMEOW123",
+			"registered_date": "22.11.2024",
+			"role_id": 2,
+			"id": 5
+		},
+		{
+			"login": "reader01",
+			"password": "anonimusA123",
+			"registered_date": "26.11.2024",
+			"role_id": 2,
+			"id": 6
+		},
+		{
+			"login": "kelpie",
+			"password": "kekeLP123",
+			"registered_date": "30.11.2024",
+			"role_id": 2,
+			"id": 7
+		},
+		{
+			"login": "pudge",
+			"password": "pudgePUDGE123",
+			"registered_date": "01.12.2024",
+			"role_id": 2,
+			"id": 8
+		},
+		{
+			"login": "Lambert",
+			"password": "vredniiLambert123",
+			"registered_date": "12.12.2024",
+			"role_id": 2,
+			"id": 9
+		},
+		{
+			"login": "rocklee",
+			"password": "rockLEE123",
+			"registered_date": "12.12.2024",
+			"role_id": 2,
+			"id": 10
+		},
+		{
+			"login": "ANONIMUS",
+			"password": "anonDANON123",
+			"registered_date": "12.12.2024",
+			"role_id": 2,
+			"id": 11
+		},
+		{
+			"login": "KittenKittenKitten",
+			"password": "KittenKitten123",
+			"registered_date": "15.12.2024",
+			"role_id": 2,
+			"id": 12
+		},
+		{
+			"login": "Loosetooth",
+			"password": "LoosetootH123",
+			"registered_date": "18.12.2024",
+			"role_id": 2,
+			"id": 13
+		},
+		{
+			"login": "Fury",
+			"password": "FuryPury123",
+			"registered_date": "18.12.2024",
+			"role_id": 2,
+			"id": 14
+		},
+		{
+			"login": "Princess",
+			"password": "PrincessPrincess123",
+			"registered_date": "23.12.2024",
+			"role_id": 2,
+			"id": 15
 		}
 	],
 	"roles": [
@@ -20,6 +118,10 @@
 		{
 			"id": "2",
 			"name": "Читатель"
+		},
+		{
+			"id": "3",
+			"name": "Гость"
 		}
 	],
 	"posts": [
