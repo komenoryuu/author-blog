@@ -16,6 +16,7 @@ const UsersContainer = ({ className }) => {
 	const [users, setUsers] = useState([]);
 	const [roles, setRoles] = useState([]);
 	const [errorMessage, setErrorMessage] = useState(null);
+	const [updateUsers, setUpdateUsers] = useState(false);
 	const requestServer = useServerRequest();
 
 	useEffect(() => {
@@ -33,7 +34,12 @@ const UsersContainer = ({ className }) => {
 			setUsers(usersResponse.response);
 			setRoles(rolesResponse.response);
 		});
-	}, [requestServer]);
+	}, [requestServer, updateUsers]);
+
+	const onUserDelete = (userId) =>
+		requestServer('deleteUser', userId).then(() => {
+			setUpdateUsers(!updateUsers);
+		});
 
 	return (
 		<div className={className}>
@@ -52,12 +58,14 @@ const UsersContainer = ({ className }) => {
 						{users.map(({ id, login, registeredDate, roleId }) => (
 							<UserRow
 								key={id}
+								id={id}
 								login={login}
 								registeredDate={registeredDate}
 								roleId={roleId}
 								roles={roles.filter(
 									({ id }) => Number(id) !== ROLE.GUEST,
 								)}
+								onUserDelete={() => onUserDelete(id)}
 							/>
 						))}
 					</tbody>

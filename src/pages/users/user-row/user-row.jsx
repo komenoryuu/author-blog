@@ -1,8 +1,7 @@
-import { useDispatch } from 'react-redux';
+import { useState } from 'react';
+import { useServerRequest } from '../../../hooks';
 import { Button, Icon } from '../../../shared';
 import styled from 'styled-components';
-import { useState } from 'react';
-import { ROLE } from '../../../constants';
 
 const Wrapper = styled.div`
 	display: flex;
@@ -20,15 +19,24 @@ const Wrapper = styled.div`
 
 export const UserRowContainer = ({
 	className,
+	id,
 	login,
 	registeredDate,
 	roleId: userRoleId,
 	roles,
+	onUserDelete
 }) => {
+	const [initialRoleId, setInitialRoleId] = useState(userRoleId);
 	const [selectedRoleId, setSelectedRoleId] = useState(userRoleId);
-	const dispatch = useDispatch();
+	const requestServer = useServerRequest();
+
 	const onRoleChange = ({ target }) =>
 		setSelectedRoleId(Number(target.value));
+
+	const onRoleSave = (userId, newUserRoleId) =>
+		requestServer('updateUserRole', userId, newUserRoleId).then(() => {
+			setInitialRoleId(newUserRoleId);
+		});
 
 	return (
 		<tr className={className}>
@@ -46,8 +54,12 @@ export const UserRowContainer = ({
 							</option>
 						))}
 					</select>
-					{userRoleId !== selectedRoleId && (
-						<Button width='29px' height='29px'>
+					{initialRoleId !== selectedRoleId && (
+						<Button
+							width='29px'
+							height='29px'
+							onClick={() => onRoleSave(id, selectedRoleId)}
+						>
 							<Icon id='fa-check' size='1.3rem' />
 						</Button>
 					)}
@@ -56,7 +68,7 @@ export const UserRowContainer = ({
 			<td>
 				<Wrapper
 					className='wrapperDeleteUser'
-					onClick={() => dispatch(/* TODO*/)}
+					onClick={() => onUserDelete(id)}
 				>
 					<span>Удалить пользователя</span>
 					<Icon id='fa-trash-o' size='1.3rem' />
