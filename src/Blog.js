@@ -1,37 +1,39 @@
 import { Route, Routes } from 'react-router-dom';
 import { Header, Footer } from './components';
-import { Login, Register } from './pages';
+import { Login, Register, Users } from './pages';
 import styled from 'styled-components';
 
 const Container = styled.div`
-	min-height: 100vh;
-	max-width: 90vw;
 	margin: 0 auto;
 	display: flex;
 	flex-direction: column;
-	justify-content: space-between;
+	height: 100%;
+	max-width: 90vw;
 `;
 
-const Content = styled.div`
+const Main = styled.main`
+	flex: 1 0 auto;
 	padding: 24px 0px;
+	display: flex;
+	justify-content: center;
 `;
 
 export const Blog = () => {
 	return (
 		<Container>
 			<Header />
-			<Content>
+			<Main>
 				<Routes>
 					<Route path='/' element={<div>Главная страница</div>} />
 					<Route path='/login' element={<Login />} />
 					<Route path='/register' element={<Register />} />
-					<Route path='/users' element={<div>Пользователи</div>} />
+					<Route path='/users' element={<Users />} />
 					<Route path='/post' element={<div>Новая статья</div>} />
 					<Route path='/post/:post_id' element={<div>Статья</div>} />
 					<Route path='*' element={<div>Ошибка</div>} />
 				</Routes>
-			</Content>
-			<Footer>Футер</Footer>
+			</Main>
+			<Footer />
 		</Container>
 	);
 };

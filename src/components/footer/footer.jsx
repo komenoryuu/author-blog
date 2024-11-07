@@ -12,7 +12,9 @@ const FooterConainer = ({ className }) => (
 );
 
 export const Footer = styled(FooterConainer)`
-	height: 100px;
+	flex: 0 0 auto;
+	width: 100%;
+	min-height: 100px;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;

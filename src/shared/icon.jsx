@@ -7,5 +7,7 @@ const IconContainer = ({ className, id }) => (
 );
 
 export const Icon = styled(IconContainer)`
-	font-size: ${({ size }) => size};
+	display: flex;
+	align-items: end;
+	font-size: ${({ size = '1.1rem' }) => size};
 `;

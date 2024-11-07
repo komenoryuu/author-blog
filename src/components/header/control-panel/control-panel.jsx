@@ -42,15 +42,15 @@ const ControlPanelContainer = ({ className }) => {
 			<Nav>
 				<StyledLink to='/post'>
 					Новая статья
-					<Icon id='fa-file-text-o' size='1.1rem' />
+					<Icon id='fa-file-text-o'/>
 				</StyledLink>
 				<StyledLink to='/users'>
 					Пользователи
-					<Icon id='fa-user-o' size='1.1rem' />
+					<Icon id='fa-user-o'/>
 				</StyledLink>
 				<StyledLink onClick={() => navigate(-1)}>
 					Назад
-					<Icon id='fa-hand-o-left' size='1.1rem' />
+					<Icon id='fa-hand-o-left' />
 				</StyledLink>
 			</Nav>
 			{currentRole === ROLE.GUEST ? (
