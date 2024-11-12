@@ -37,16 +37,22 @@ const ControlPanelContainer = ({ className }) => {
 	const session = useSelector(selectSession);
 	const dispatch = useDispatch();
 
+	const onLogout = () => {
+		dispatch(logout(session));
+		sessionStorage.removeItem('userData');
+		navigate('/');
+	};
+
 	return (
 		<div className={className}>
 			<Nav>
 				<StyledLink to='/post'>
 					Новая статья
-					<Icon id='fa-file-text-o'/>
+					<Icon id='fa-file-text-o' />
 				</StyledLink>
 				<StyledLink to='/users'>
 					Пользователи
-					<Icon id='fa-user-o'/>
+					<Icon id='fa-user-o' />
 				</StyledLink>
 				<StyledLink onClick={() => navigate(-1)}>
 					Назад
@@ -60,14 +66,7 @@ const ControlPanelContainer = ({ className }) => {
 			) : (
 				<UserLogin>
 					{userLogin}
-					<Button
-						width='118px'
-						height='38px'
-						onClick={() => {
-							dispatch(logout(session));
-							navigate('/');
-						}}
-					>
+					<Button width='118px' height='38px' onClick={onLogout}>
 						Выйти
 					</Button>
 				</UserLogin>

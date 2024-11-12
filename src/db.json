@@ -170,10 +170,59 @@
   ],
   "comments": [
     {
-      "id": "001",
-      "author_id": "001",
       "post_id": "001",
-      "content": "Отличная статья! Уолш часто использовал личные примеры, чтобы вдохновить команду. Я тоже вдохновляюсь им :)"
+      "author_id": 1,
+      "published_date": "12.11.2024",
+      "content": "asdasd",
+      "id": "RtsOYEx"
+    },
+    {
+      "post_id": "001",
+      "author_id": 1,
+      "published_date": "12.11.2024",
+      "content": "asdasdasd",
+      "id": "3U_B6y8"
+    },
+    {
+      "post_id": "001",
+      "author_id": 1,
+      "published_date": "12.11.2024",
+      "content": "asdasd",
+      "id": "CE1v0lX"
+    },
+    {
+      "post_id": "001",
+      "author_id": 1,
+      "published_date": "12.11.2024",
+      "content": "Новый коммент\n",
+      "id": "EwjlThv"
+    },
+    {
+      "post_id": "001",
+      "author_id": 1,
+      "published_date": "12.11.2024",
+      "content": "Новый коммент 2\n",
+      "id": "nmRlFMN"
+    },
+    {
+      "post_id": "001",
+      "author_id": 1,
+      "published_date": "12.11.2024",
+      "content": "123",
+      "id": "dDFsyaM"
+    }
+  ],
+  "sessions": [
+    {
+      "hash": "0.23661856418332882778798875733627937734127044677734",
+      "user": {
+        "id": 1,
+        "login": "komenoryuu",
+        "password": "gohanDESU123",
+        "registeredDate": "07.11.2024",
+        "roleId": 0
+      },
+      "id": 1
     }
   ]
 }
