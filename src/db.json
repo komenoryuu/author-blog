@@ -173,20 +173,6 @@
       "post_id": "001",
       "author_id": 1,
       "published_date": "12.11.2024",
-      "content": "asdasdasd",
-      "id": "3U_B6y8"
-    },
-    {
-      "post_id": "001",
-      "author_id": 1,
-      "published_date": "12.11.2024",
-      "content": "asdasd",
-      "id": "CE1v0lX"
-    },
-    {
-      "post_id": "001",
-      "author_id": 1,
-      "published_date": "12.11.2024",
       "content": "Новый коммент\n",
       "id": "EwjlThv"
     },
@@ -198,5 +184,17 @@
       "id": "nmRlFMN"
     }
   ],
-  "sessions": []
+  "sessions": [
+    {
+      "hash": "0.30701169450114618175717851045192219316959381103516",
+      "user": {
+        "id": 1,
+        "login": "komenoryuu",
+        "password": "gohanDESU123",
+        "registeredDate": "07.11.2024",
+        "roleId": 0
+      },
+      "id": 1
+    }
+  ]
 }
