@@ -20,7 +20,7 @@ const ModalContainer = ({ className }) => {
 		<div className={className}>
 			<div className='overlay'>
 				<div className='box'>
-					<h3>Удалить комментарий? {text}</h3>
+					<h3>{text}</h3>
 					<Button onClick={onConfirm}>Да</Button>
 					<Button onClick={onCancel}>Отмена</Button>
 				</div>
@@ -55,7 +55,7 @@ export const Modal = styled(ModalContainer)`
 		margin: 0 auto;
 		padding: 20px;
 		width: 35%;
-		height: 30%;
+		height: 25%;
 		background-color: #fff;
 		border-radius: 8px;
 		font-size: 1.5rem;

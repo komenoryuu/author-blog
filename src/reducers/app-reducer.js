@@ -18,6 +18,19 @@ export const appReducer = (state = initialAppState, { type, payload }) => {
 				wasLogout: !state.wasLogout,
 			};
 		}
+		case ACTION_TYPE.OPEN_MODAL: {
+			return {
+				...state,
+				modal: {
+					...state.modal,
+					...payload,
+					isOpen: true,
+				},
+			};
+		}
+		case ACTION_TYPE.CLOSE_MODAL: {
+			return initialAppState;
+		}
 		default:
 			return state;
 	}

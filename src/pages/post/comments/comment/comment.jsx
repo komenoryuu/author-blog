@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux';
 import { useServerRequest } from '../../../../hooks';
 import { Icon } from '../../../../shared';
-import { removeCommentAsync } from '../../../../action';
+import { removeCommentAsync, openModal, CLOSE_MODAL } from '../../../../action';
 import styled from 'styled-components';
 
 const UserInfo = styled.div`
@@ -33,7 +33,18 @@ const CommentContainer = ({
 	const requestServer = useServerRequest();
 
 	const onRemoveComment = (commentId) => {
-		dispatch(removeCommentAsync(requestServer, postId, commentId));
+		dispatch(
+			openModal({
+				text: 'Удалить комментарий?',
+				onConfirm: () => {
+					dispatch(
+						removeCommentAsync(requestServer, postId, commentId),
+					);
+					dispatch(CLOSE_MODAL);
+				},
+				onCancel: () => dispatch(CLOSE_MODAL),
+			}),
+		);
 	};
 
 	return (
