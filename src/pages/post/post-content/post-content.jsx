@@ -1,47 +1,34 @@
-import { Icon } from '../../../shared';
 import styled from 'styled-components';
-
-const Option = styled.div`
-	display: flex;
-	gap: 8px;
-	align-items: center;
-	cursor: pointer;
-	transition: all 0.2s;
-	&:hover {
-		color: #7f56d9;
-	}
-`;
+import { PostControlPanel } from '../components/post-control-panel';
+import { useNavigate } from 'react-router';
 
 const PostContentContainer = ({
 	className,
 	post: { id, title, imageUrl, content, publishedAt },
 }) => {
+	const navigate = useNavigate();
+
+	const onNavigate = () => navigate(`/post/${id}/edit`);
+
 	return (
 		<div className={className}>
 			<img src={imageUrl} alt='post_image' />
 			<h3>{title}</h3>
-			<div>
-				<div className='calendarWrapper'>
-					<Icon id='fa-calendar-o' size='1.2rem' />
-					<span>{publishedAt}</span>
-				</div>
-				<div className='optionsWrapper'>
-					<Option>
-						Редактировать
-						<Icon id='fa-pencil-square-o' size='1.4rem' />
-					</Option>
-					<Option>
-						Удалить
-						<Icon id='fa-trash-o' size='1.4rem' />
-					</Option>
-				</div>
-			</div>
+			<PostControlPanel
+				publishedAt={publishedAt}
+				iconId={'fa-pencil-square-o'}
+				handler={onNavigate}
+			>
+				Редактировать
+			</PostControlPanel>
 			<p>{content}</p>
 		</div>
 	);
 };
 
 export const PostContent = styled(PostContentContainer)`
+	margin: 0 auto;
+	max-width: 70%;
 	margin-bottom: 24px;
 	& > img {
 		float: left;
@@ -51,23 +38,8 @@ export const PostContent = styled(PostContentContainer)`
 		font-size: 1.8rem;
 		margin-bottom: 24px;
 	}
-	& > div {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		margin-bottom: 12px;
-		font-size: 1.2rem;
-		.calendarWrapper {
-			display: flex;
-			align-items: center;
-			gap: 8px;
-		}
-		.optionsWrapper {
-			display: flex;
-			gap: 20px;
-		}
-	}
 	& > p {
 		font-size: 1.2rem;
+		white-space: pre-line;
 	}
 `;
