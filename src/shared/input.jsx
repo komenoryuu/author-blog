@@ -14,6 +14,7 @@ export const Input = styled(InputContainer)`
 	font-size: 1.2rem;
 	outline: none;
 	&:focus {
-		border: 2px solid #7f56d9;
+		outline: 2px solid #7f56d9;
+		border-color: #fff;
 	}
 `;

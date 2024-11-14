@@ -5,7 +5,7 @@ const H2Container = ({ className, children }) => (
 );
 
 export const H2 = styled(H2Container)`
-	font-size: 2.3rem;
+	font-size: ${({ size = '2.3rem' }) => size};
 	margin-bottom: 30px;
 	font-weight: 600;
 `;

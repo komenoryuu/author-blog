@@ -64,6 +64,7 @@ const RegisterContainer = ({ className }) => {
 				setServerError(error);
 			} else {
 				dispatch(setUser(response));
+				sessionStorage.setItem('userData', JSON.stringify(response));
 			}
 		});
 	};
