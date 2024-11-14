@@ -15,6 +15,7 @@ const PostContentContainer = ({
 			<img src={imageUrl} alt='post_image' />
 			<h3>{title}</h3>
 			<PostControlPanel
+				id={id}
 				publishedAt={publishedAt}
 				iconId={'fa-pencil-square-o'}
 				handler={onNavigate}

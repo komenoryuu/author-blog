@@ -54,6 +54,7 @@ const PostFormContainer = ({
 				/>
 			</div>
 			<PostControlPanel
+				id={id}
 				publishedAt={publishedAt}
 				iconId={'fa-check-square-o'}
 				handler={onSave}
