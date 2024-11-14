@@ -1,6 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { Icon, Button } from '../../../shared';
+import { Button, IconWithText } from '../../../shared';
 import { ROLE } from '../../../constants';
 import { selectRole, selectLogin, selectSession } from '../../../selectors';
 import { logout } from '../../../action';
@@ -47,16 +47,16 @@ const ControlPanelContainer = ({ className }) => {
 		<div className={className}>
 			<Nav>
 				<StyledLink to='/post'>
-					Новая статья
-					<Icon id='fa-file-text-o' />
+					<IconWithText
+						iconId='fa-file-text-o'
+						content={'Новая статья'}
+					/>
 				</StyledLink>
 				<StyledLink to='/users'>
-					Пользователи
-					<Icon id='fa-user-o' />
+					<IconWithText iconId='fa-user-o' content={'Пользователи'} />
 				</StyledLink>
 				<StyledLink onClick={() => navigate(-1)}>
-					Назад
-					<Icon id='fa-hand-o-left' />
+					<IconWithText iconId='fa-hand-o-left' content={'Назад'} />
 				</StyledLink>
 			</Nav>
 			{currentRole === ROLE.GUEST ? (

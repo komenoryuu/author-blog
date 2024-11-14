@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useServerRequest } from '../../hooks';
 import { Content } from '../../components';
-import { H2 } from '../../shared';
+import { H2, Loader } from '../../shared';
 import { UserRow } from './user-row';
 
 import styled from 'styled-components';
@@ -18,6 +18,7 @@ const UsersContainer = ({ className }) => {
 	const [errorMessage, setErrorMessage] = useState(null);
 	const [updateUsers, setUpdateUsers] = useState(false);
 	const requestServer = useServerRequest();
+	const isLoadingData = users.length === 0;
 
 	useEffect(() => {
 		Promise.all([
@@ -43,34 +44,41 @@ const UsersContainer = ({ className }) => {
 
 	return (
 		<div className={className}>
-			<Content error={errorMessage}>
-				<H2>Пользователи</H2>
-				<table>
-					<thead>
-						<tr>
-							<Th>Имя пользователя</Th>
-							<Th>Дата регистрации</Th>
-							<Th>Роль</Th>
-							<Th>Действия</Th>
-						</tr>
-					</thead>
-					<tbody>
-						{users.map(({ id, login, registeredDate, roleId }) => (
-							<UserRow
-								key={id}
-								id={id}
-								login={login}
-								registeredDate={registeredDate}
-								roleId={roleId}
-								roles={roles.filter(
-									({ id }) => Number(id) !== ROLE.GUEST,
-								)}
-								onUserDelete={() => onUserDelete(id)}
-							/>
-						))}
-					</tbody>
-				</table>
-			</Content>
+			{isLoadingData ? (
+				<Loader />
+			) : (
+				<Content error={errorMessage}>
+					<H2>Пользователи</H2>
+					<table>
+						<thead>
+							<tr>
+								<Th>Имя пользователя</Th>
+								<Th>Дата регистрации</Th>
+								<Th>Роль</Th>
+								<Th>Действия</Th>
+							</tr>
+						</thead>
+						<tbody>
+							{users.map(
+								({ id, login, registeredDate, roleId }) => (
+									<UserRow
+										key={id}
+										id={id}
+										login={login}
+										registeredDate={registeredDate}
+										roleId={roleId}
+										roles={roles.filter(
+											({ id }) =>
+												Number(id) !== ROLE.GUEST,
+										)}
+										onUserDelete={() => onUserDelete(id)}
+									/>
+								),
+							)}
+						</tbody>
+					</table>
+				</Content>
+			)}
 		</div>
 	);
 };

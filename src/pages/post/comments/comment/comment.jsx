@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 import { useServerRequest } from '../../../../hooks';
-import { Icon } from '../../../../shared';
+import { Icon, IconWithText } from '../../../../shared';
 import { removeCommentAsync, openModal, CLOSE_MODAL } from '../../../../action';
 import styled from 'styled-components';
 
@@ -8,17 +8,7 @@ const UserInfo = styled.div`
 	display: flex;
 	justify-content: space-between;
 	margin-bottom: 8px;
-	.userWrapper {
-		display: flex;
-		gap: 8px;
-		align-items: center;
-		font-weight: 600;
-	}
-	.dateWrapper {
-		display: flex;
-		gap: 8px;
-		align-items: center;
-	}
+	font-weight: 600;
 `;
 
 const CommentContainer = ({
@@ -51,14 +41,11 @@ const CommentContainer = ({
 		<div className={className}>
 			<div className='comment'>
 				<UserInfo>
-					<div className='userWrapper'>
-						<Icon id='fa-user-o' />
-						<span>{author}</span>
-					</div>
-					<div className='dateWrapper'>
-						<Icon id='fa-calendar-o' />
-						<span>{publishedAt}</span>
-					</div>
+					<IconWithText iconId='fa-user-o' content={author} />
+					<IconWithText
+						iconId='fa-calendar-o'
+						content={publishedAt}
+					/>
 				</UserInfo>
 				<p>{content}</p>
 			</div>

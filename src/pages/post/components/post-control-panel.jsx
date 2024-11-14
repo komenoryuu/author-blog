@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 import { CLOSE_MODAL, openModal, removePostAsync } from '../../../action';
-import { Icon } from '../../../shared';
+import { Icon, IconWithText } from '../../../shared';
 import { useServerRequest } from '../../../hooks';
 import { useNavigate } from 'react-router';
 import styled from 'styled-components';
@@ -49,10 +49,7 @@ const PostControlPanelContainer = ({
 	return (
 		<div className={className}>
 			{!isNewPostPage && (
-				<div className='calendarWrapper'>
-					<Icon id='fa-calendar-o' size='1.2rem' />
-					<span>{publishedAt}</span>
-				</div>
+				<IconWithText iconId={'fa-calendar-o'} content={publishedAt} />
 			)}
 
 			<div className='optionsWrapper'>
@@ -77,11 +74,6 @@ export const PostControlPanel = styled(PostControlPanelContainer)`
 	align-items: center;
 	margin-bottom: 12px;
 	font-size: 1.2rem;
-	.calendarWrapper {
-		display: flex;
-		align-items: center;
-		gap: 8px;
-	}
 	.optionsWrapper {
 		display: flex;
 		gap: 20px;

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useLayoutEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Header, Footer, Modal } from './components';
-import { Login, Register, Users, Post } from './pages';
+import { Login, Register, Users, Post, MainPage } from './pages';
 import { setUser } from './action';
 
 const Container = styled.div`
@@ -45,7 +45,7 @@ export const Blog = () => {
 			<Header />
 			<Main>
 				<Routes>
-					<Route path='/' element={<div>Главная страница</div>} />
+					<Route path='/' element={<MainPage/>} />
 					<Route path='/login' element={<Login />} />
 					<Route path='/register' element={<Register />} />
 					<Route path='/users' element={<Users />} />
