@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useLayoutEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { useDispatch } from 'react-redux';
 import { savePostAsync } from '../../../action';
@@ -12,45 +12,51 @@ const PostFormContainer = ({
 	className,
 	post: { id, title, imageUrl, content, publishedAt },
 }) => {
-	const imageRef = useRef(null);
-	const titleRef = useRef(null);
+	const [imageUrlValue, setImageUrlValue] = useState(imageUrl);
+	const [titleValue, setTitlelValue] = useState(title);
 	const contentRef = useRef(null);
-
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const requestServer = useServerRequest();
+	const isNewPostPage = id === '';
+
+	useLayoutEffect(() => {
+		setImageUrlValue(imageUrl);
+		setTitlelValue(title);
+	}, [imageUrl, title]);
 
 	const onSave = () => {
-		const newImageUrl = imageRef.current.value;
-		const newTitle = titleRef.current.value;
 		const newContent = sanitizeContent(contentRef.current.innerHTML);
 
 		dispatch(
 			savePostAsync(requestServer, {
 				id,
-				imageUrl: newImageUrl,
-				title: newTitle,
+				imageUrl: imageUrlValue,
+				title: titleValue,
 				content: newContent,
 			}),
-		).then(() => navigate(`/post/${id}`));
+		).then(({ id }) => navigate(`/post/${id}`));
 	};
+
+	const onImageChange = ({ target }) => setImageUrlValue(target.value);
+	const onTitleChange = ({ target }) => setTitlelValue(target.value);
 
 	return (
 		<div className={className}>
 			<div className='inputWrapper'>
 				<span>Новое изображение</span>
 				<Input
-					ref={imageRef}
-					defaultValue={imageUrl}
+					value={imageUrlValue}
 					placeholder='Изображение...'
+					onChange={onImageChange}
 				/>
 			</div>
 			<div className='inputWrapper'>
 				<span>Новый заголовок</span>
 				<Input
-					ref={titleRef}
-					defaultValue={title}
+					value={titleValue}
 					placeholder='Заголовок...'
+					onChange={onTitleChange}
 				/>
 			</div>
 			<PostControlPanel
@@ -59,7 +65,7 @@ const PostFormContainer = ({
 				iconId={'fa-check-square-o'}
 				handler={onSave}
 			>
-				Сохранить
+				{isNewPostPage ? 'Опубликовать новую статью' : 'Сохранить'}
 			</PostControlPanel>
 			<p
 				ref={contentRef}
@@ -87,6 +93,7 @@ export const PostForm = styled(PostFormContainer)`
 		gap: 5px;
 	}
 	& > p {
+		min-height: 400px;
 		padding: 10px;
 		outline: none;
 		border: 1px solid #000;
@@ -94,6 +101,7 @@ export const PostForm = styled(PostFormContainer)`
 		font-size: 1.2rem;
 		white-space: pre-line;
 		overflow-wrap: break-word;
+		overflow: auto;
 		&:focus {
 			border-color: #fff;
 			outline: 2px solid #7f56d9;

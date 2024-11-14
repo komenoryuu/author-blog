@@ -1,10 +1,10 @@
-import { addSession, getSession, deleteSession } from './api';
+import { createSession, getSession, deleteSession } from './api';
 
 export const sessions = {
 	create(user) {
 		const hash = Math.random().toFixed(50);
 
-		addSession(hash, user);
+		createSession(hash, user);
 
 		return hash;
 	},

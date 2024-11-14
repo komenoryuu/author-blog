@@ -342,6 +342,17 @@
         "roleId": 0
       },
       "id": 1
+    },
+    {
+      "hash": "0.55682666277175185687298153425217606127262115478516",
+      "user": {
+        "id": 1,
+        "login": "komenoryuu",
+        "password": "gohanDESU123",
+        "registeredDate": "07.11.2024",
+        "roleId": 0
+      },
+      "id": 2
     }
   ]
 }

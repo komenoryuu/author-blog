@@ -8,7 +8,6 @@ import styled from 'styled-components';
 const Option = styled.div`
 	display: flex;
 	gap: 8px;
-	align-items: center;
 	cursor: pointer;
 	transition: all 0.2s;
 	&:hover {
@@ -27,6 +26,7 @@ const PostControlPanelContainer = ({
 	const dispatch = useDispatch();
 	const requestServer = useServerRequest();
 	const navigate = useNavigate();
+	const isNewPostPage = id === '';
 
 	const onRemovePost = (postId) => {
 		dispatch(
@@ -48,19 +48,24 @@ const PostControlPanelContainer = ({
 
 	return (
 		<div className={className}>
-			<div className='calendarWrapper'>
-				<Icon id='fa-calendar-o' size='1.2rem' />
-				<span>{publishedAt}</span>
-			</div>
+			{!isNewPostPage && (
+				<div className='calendarWrapper'>
+					<Icon id='fa-calendar-o' size='1.2rem' />
+					<span>{publishedAt}</span>
+				</div>
+			)}
+
 			<div className='optionsWrapper'>
 				<Option onClick={() => handler()}>
 					{children}
 					<Icon id={iconId} size='1.4rem' />
 				</Option>
-				<Option onClick={() => onRemovePost(id)}>
-					Удалить
-					<Icon id='fa-trash-o' size='1.4rem' />
-				</Option>
+				{!isNewPostPage && (
+					<Option onClick={() => onRemovePost(id)}>
+						Удалить
+						<Icon id='fa-trash-o' size='1.4rem' />
+					</Option>
+				)}
 			</div>
 		</div>
 	);
