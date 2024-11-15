@@ -42,10 +42,12 @@ const CommentContainer = ({
 			<div className='comment'>
 				<UserInfo>
 					<IconWithText iconId='fa-user-o' content={author} />
-					<IconWithText
-						iconId='fa-calendar-o'
-						content={publishedAt}
-					/>
+					<div style={{ fontWeight: 400 }}>
+						<IconWithText
+							iconId='fa-calendar-o'
+							content={publishedAt}
+						/>
+					</div>
 				</UserInfo>
 				<p>{content}</p>
 			</div>

@@ -44,41 +44,45 @@ const UsersContainer = ({ className }) => {
 
 	return (
 		<div className={className}>
-			{isLoadingData ? (
-				<Loader />
-			) : (
-				<Content error={errorMessage}>
-					<H2>Пользователи</H2>
-					<table>
-						<thead>
-							<tr>
-								<Th>Имя пользователя</Th>
-								<Th>Дата регистрации</Th>
-								<Th>Роль</Th>
-								<Th>Действия</Th>
-							</tr>
-						</thead>
-						<tbody>
-							{users.map(
-								({ id, login, registeredDate, roleId }) => (
-									<UserRow
-										key={id}
-										id={id}
-										login={login}
-										registeredDate={registeredDate}
-										roleId={roleId}
-										roles={roles.filter(
-											({ id }) =>
-												Number(id) !== ROLE.GUEST,
-										)}
-										onUserDelete={() => onUserDelete(id)}
-									/>
-								),
-							)}
-						</tbody>
-					</table>
-				</Content>
-			)}
+			<Content error={errorMessage}>
+				{isLoadingData ? (
+					<Loader />
+				) : (
+					<>
+						<H2>Пользователи</H2>
+						<table>
+							<thead>
+								<tr>
+									<Th>Имя пользователя</Th>
+									<Th>Дата регистрации</Th>
+									<Th>Роль</Th>
+									<Th>Действия</Th>
+								</tr>
+							</thead>
+							<tbody>
+								{users.map(
+									({ id, login, registeredDate, roleId }) => (
+										<UserRow
+											key={id}
+											id={id}
+											login={login}
+											registeredDate={registeredDate}
+											roleId={roleId}
+											roles={roles.filter(
+												({ id }) =>
+													Number(id) !== ROLE.GUEST,
+											)}
+											onUserDelete={() =>
+												onUserDelete(id)
+											}
+										/>
+									),
+								)}
+							</tbody>
+						</table>
+					</>
+				)}
+			</Content>
 		</div>
 	);
 };

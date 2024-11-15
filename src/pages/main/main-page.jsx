@@ -2,16 +2,26 @@ import { useEffect, useState } from 'react';
 import { useServerRequest } from '../../hooks';
 import { PostCard } from './post-card';
 import { H2, Loader } from '../../shared';
+import { Pagination } from './pagination';
+import { PAGINATION_LIMIT } from '../../constants';
+import { getLastPageFromLinks } from './utils/get-last-page-from-links';
 import styled from 'styled-components';
 
 const MainPageContainer = ({ className }) => {
 	const [posts, setPosts] = useState([]);
 	const requestServer = useServerRequest();
+	const [page, setPage] = useState(1);
+	const [lastPage, setLastPate] = useState(1);
 	const isLoadingData = posts.length === 0;
 
 	useEffect(() => {
-		requestServer('fetchPosts').then((posts) => setPosts(posts.response));
-	}, [requestServer]);
+		requestServer('fetchPosts', page, PAGINATION_LIMIT).then(
+			({ response: { posts, links } }) => {
+				setPosts(posts);
+				setLastPate(getLastPageFromLinks(links));
+			},
+		);
+	}, [requestServer, page]);
 
 	return (
 		<div className={className}>
@@ -20,7 +30,7 @@ const MainPageContainer = ({ className }) => {
 			) : (
 				<>
 					<H2>Все статьи блога</H2>
-					<div>
+					<div className='postCardWrapper'>
 						{posts.map(
 							({
 								id,
@@ -40,6 +50,13 @@ const MainPageContainer = ({ className }) => {
 							),
 						)}
 					</div>
+					{lastPage > 1 && (
+						<Pagination
+							page={page}
+							setPage={setPage}
+							lastPage={lastPage}
+						/>
+					)}
 				</>
 			)}
 		</div>
@@ -49,10 +66,11 @@ const MainPageContainer = ({ className }) => {
 export const MainPage = styled(MainPageContainer)`
 	text-align: center;
 	max-width: 80%;
-	div {
+	.postCardWrapper {
 		display: flex;
 		justify-content: center;
 		gap: 32px;
 		flex-wrap: wrap;
+		margin-bottom: 32px;
 	}
 `;
