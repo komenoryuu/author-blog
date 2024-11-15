@@ -8,6 +8,7 @@ import { Comments } from './comments';
 import { PostForm } from './post-form';
 import { PostContent } from './post-content';
 import styled from 'styled-components';
+import { Loader } from '../../shared';
 
 const PostContainer = ({ className }) => {
 	const isCreating = useMatch('/post');
@@ -16,6 +17,7 @@ const PostContainer = ({ className }) => {
 	const params = useParams();
 	const requestServer = useServerRequest();
 	const post = useSelector(selectPost);
+	const isLoadingData = post.id === '';
 
 	useLayoutEffect(() => {
 		dispatch(RESET_POST_DATA);
@@ -31,6 +33,10 @@ const PostContainer = ({ className }) => {
 		<div className={className}>
 			{isCreating || isEditing ? (
 				<PostForm post={post} />
+			) : isLoadingData ? (
+				<div className='loaderWrapper'>
+					<Loader />
+				</div>
 			) : (
 				<>
 					<PostContent post={post} />
@@ -44,4 +50,9 @@ const PostContainer = ({ className }) => {
 export const Post = styled(PostContainer)`
 	min-width: 100%;
 	align-self: flex-start;
+	.loaderWrapper {
+		width: 100%;
+		display: flex;
+		justify-content: center;
+	}
 `;

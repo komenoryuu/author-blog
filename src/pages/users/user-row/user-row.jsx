@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useServerRequest } from '../../../hooks';
-import { Button, Icon } from '../../../shared';
+import { Button, Icon, IconWithText } from '../../../shared';
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
@@ -24,7 +24,7 @@ export const UserRowContainer = ({
 	registeredDate,
 	roleId: userRoleId,
 	roles,
-	onUserDelete
+	onUserDelete,
 }) => {
 	const [initialRoleId, setInitialRoleId] = useState(userRoleId);
 	const [selectedRoleId, setSelectedRoleId] = useState(userRoleId);
@@ -70,8 +70,11 @@ export const UserRowContainer = ({
 					className='wrapperDeleteUser'
 					onClick={() => onUserDelete(id)}
 				>
-					<span>Удалить пользователя</span>
-					<Icon id='fa-trash-o' size='1.3rem' />
+					<IconWithText
+						iconId={'fa-trash-o'}
+						iconSize='1.4rem'
+						content={'Удалить пользователя'}
+					/>
 				</Wrapper>
 			</td>
 		</tr>
@@ -79,6 +82,7 @@ export const UserRowContainer = ({
 };
 
 export const UserRow = styled(UserRowContainer)`
+	font-size: 1.2rem;
 	& > td {
 		padding: 12px;
 		text-align: left;

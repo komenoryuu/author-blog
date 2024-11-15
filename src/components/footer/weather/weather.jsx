@@ -1,29 +1,12 @@
 import { useEffect, useState } from 'react';
 import { getUserLocation, getWeather } from './utils';
+import { Loader } from '../../../shared';
 import styled from 'styled-components';
 
 const WeatherCity = styled.span`
 	display: flex;
 	align-items: center;
 	gap: 5px;
-`;
-
-const Loader = styled.div`
-	width: fit-content;
-	font-size: 1.1rem;
-	padding-bottom: 5px;
-	background: linear-gradient(currentColor 0 0) 0 100%/0% 1px no-repeat;
-	animation: l2 2s linear infinite;
-
-	&:before {
-		content: 'Загрузка погоды...';
-	}
-
-	@keyframes l2 {
-		to {
-			background-size: 100% 1px;
-		}
-	}
 `;
 
 const WeatherContainer = ({ className }) => {
