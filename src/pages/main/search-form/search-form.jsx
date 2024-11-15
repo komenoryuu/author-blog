@@ -8,8 +8,8 @@ const SearchFormContainer = ({ className, searchPhrase, onChange }) => {
 				Поиск статьи
 			</H2>
 			<p>
-				Введите название статьи или ключевые слова, содержащиеся в
-				статье
+				Введите название статьи или ключевое слово, содержащееся в
+				названиии
 			</p>
 			<div>
 				<div className='inputWrapper'>
