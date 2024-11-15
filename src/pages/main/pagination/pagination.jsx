@@ -33,6 +33,9 @@ const PaginationContainer = ({ className, page, setPage, lastPage }) => {
 export const Pagination = styled(PaginationContainer)`
 	display: flex;
 	align-items: center;
+	position: absolute;
+	bottom: 50px;
+	width: 80%;
 	gap: 20px;
 	.currentPage {
 		min-width: calc(100% / 5);

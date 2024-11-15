@@ -25,6 +25,7 @@ const PostCardContainer = ({
 export const PostCard = styled(PostCardContainer)`
 	max-width: 384px;
 	& > a {
+		text-align: start;
 		.postImage {
 			margin-bottom: 6px;
 		}

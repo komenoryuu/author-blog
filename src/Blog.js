@@ -15,8 +15,9 @@ const Container = styled.div`
 `;
 
 const Main = styled.main`
+	position: relative;
 	flex: 1 0 auto;
-	padding: 24px 0px;
+	padding: 50px 0px;
 	display: flex;
 	justify-content: center;
 `;
@@ -45,7 +46,7 @@ export const Blog = () => {
 			<Header />
 			<Main>
 				<Routes>
-					<Route path='/' element={<MainPage/>} />
+					<Route path='/' element={<MainPage />} />
 					<Route path='/login' element={<Login />} />
 					<Route path='/register' element={<Register />} />
 					<Route path='/users' element={<Users />} />
