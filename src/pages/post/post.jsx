@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect } from 'react';
+import { useEffect, useLayoutEffect, useState } from 'react';
 import { useMatch, useParams } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { useServerRequest } from '../../hooks';
@@ -9,8 +9,10 @@ import { PostForm } from './post-form';
 import { PostContent } from './post-content';
 import styled from 'styled-components';
 import { Loader } from '../../shared';
+import { ErrorPage } from '../../components/error-page/error-page';
 
 const PostContainer = ({ className }) => {
+	const [error, setError] = useState(null);
 	const isCreating = useMatch('/post');
 	const isEditing = useMatch('/post/:id/edit');
 	const dispatch = useDispatch();
@@ -26,12 +28,16 @@ const PostContainer = ({ className }) => {
 	useEffect(() => {
 		if (isCreating) return;
 
-		dispatch(loadPostAsync(requestServer, params.id));
+		dispatch(loadPostAsync(requestServer, params.id)).then((postData) =>
+			setError(postData.error),
+		);
 	}, [dispatch, params.id, requestServer, isCreating]);
 
 	return (
 		<div className={className}>
-			{isCreating || isEditing ? (
+			{error ? (
+				<ErrorPage error={error} />
+			) : isCreating || isEditing ? (
 				<PostForm post={post} />
 			) : isLoadingData ? (
 				<div className='loaderWrapper'>

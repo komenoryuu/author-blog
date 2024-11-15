@@ -2,9 +2,10 @@ import { Route, Routes } from 'react-router-dom';
 import styled from 'styled-components';
 import { useLayoutEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { Header, Footer, Modal } from './components';
+import { Header, Footer, Modal, ErrorPage } from './components';
 import { Login, Register, Users, Post, MainPage } from './pages';
 import { setUser } from './action';
+import { ERROR } from './constants';
 
 const Container = styled.div`
 	margin: 0 auto;
@@ -54,7 +55,10 @@ export const Blog = () => {
 					<Route path='/post' element={<Post />} />
 					<Route path='/post/:id' element={<Post />} />
 					<Route path='/post/:id/edit' element={<Post />} />
-					<Route path='*' element={<div>Ошибка</div>} />
+					<Route
+						path='*'
+						element={<ErrorPage error={ERROR.PAGE_NOF_FOUND} />}
+					/>
 				</Routes>
 			</Main>
 			<Footer />
