@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useServerRequest } from '../../hooks';
-import { Content } from '../../components';
+import { AccessDeniedPage } from '../../components';
 import { H2, Loader } from '../../shared';
 import { UserRow } from './user-row';
-
-import styled from 'styled-components';
 import { ROLE } from '../../constants';
+import { checkAccess } from '../../utils';
+import { selectRole } from '../../selectors';
+import styled from 'styled-components';
 
 const Th = styled.th`
 	padding: 12px;
@@ -17,10 +19,13 @@ const UsersContainer = ({ className }) => {
 	const [roles, setRoles] = useState([]);
 	const [errorMessage, setErrorMessage] = useState(null);
 	const [updateUsers, setUpdateUsers] = useState(false);
+	const userRole = useSelector(selectRole);
 	const requestServer = useServerRequest();
 	const isLoadingData = users.length === 0;
 
 	useEffect(() => {
+		if (!checkAccess([ROLE.ADMIN], userRole)) return;
+
 		Promise.all([
 			requestServer('fetchUsers'),
 			requestServer('fetchRoles'),
@@ -35,16 +40,19 @@ const UsersContainer = ({ className }) => {
 			setUsers(usersResponse.response);
 			setRoles(rolesResponse.response);
 		});
-	}, [requestServer, updateUsers]);
+	}, [requestServer, updateUsers, userRole]);
 
-	const onUserDelete = (userId) =>
-		requestServer('deleteUser', userId).then(() => {
-			setUpdateUsers(!updateUsers);
-		});
+	const onUserDelete = (userId) => {
+		if (!checkAccess([ROLE.ADMIN], userRole)) return;
+
+		requestServer('deleteUser', userId).then(() =>
+			setUpdateUsers(!updateUsers),
+		);
+	};
 
 	return (
 		<div className={className}>
-			<Content error={errorMessage}>
+			<AccessDeniedPage access={[ROLE.ADMIN]} serverError={errorMessage}>
 				{isLoadingData ? (
 					<Loader />
 				) : (
@@ -82,7 +90,7 @@ const UsersContainer = ({ className }) => {
 						</table>
 					</>
 				)}
-			</Content>
+			</AccessDeniedPage>
 		</div>
 	);
 };
