@@ -5,6 +5,7 @@ const LoaderContainer = ({ className }) => {
 };
 
 export const Loader = styled(LoaderContainer)`
+	margin: 0 auto;
 	width: fit-content;
 	font-size: 1.1rem;
 	padding-bottom: 5px;

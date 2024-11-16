@@ -4,7 +4,8 @@ import { useServerRequest } from '../../../hooks';
 import { addCommentAsync } from '../../../action';
 import { H2, Icon } from '../../../shared';
 import { Comment } from './comment';
-import { selectUserId } from '../../../selectors';
+import { selectRole, selectUserId } from '../../../selectors';
+import { ROLE } from '../../../constants';
 import styled from 'styled-components';
 
 const SendComment = styled.div`
@@ -32,8 +33,11 @@ const LeaveCommentArea = styled.textarea`
 const CommentsContainer = ({ className, comments, postId }) => {
 	const [newComment, setNewComment] = useState('');
 	const userId = useSelector(selectUserId);
+	const currentRole = useSelector(selectRole);
 	const dispatch = useDispatch();
 	const requestServer = useServerRequest();
+
+	const isUserAuthorize = currentRole !== ROLE.GUEST;
 
 	const onLeaveComment = (postId, userId, content) => {
 		dispatch(addCommentAsync(requestServer, postId, userId, content));
@@ -44,21 +48,25 @@ const CommentsContainer = ({ className, comments, postId }) => {
 		<div className={className}>
 			<div>
 				<H2 size='2rem'>Комментарии</H2>
-				<div className='leaveComment'>
-					<LeaveCommentArea
-						name='leaveComment'
-						value={newComment}
-						placeholder='Оставьте комментарий...'
-						onChange={({ target }) => setNewComment(target.value)}
-					/>
-					<SendComment
-						onClick={() =>
-							onLeaveComment(postId, userId, newComment)
-						}
-					>
-						<Icon id='fa-check-square-o' size='1.5rem' />
-					</SendComment>
-				</div>
+				{isUserAuthorize && (
+					<div className='leaveComment'>
+						<LeaveCommentArea
+							name='leaveComment'
+							value={newComment}
+							placeholder='Оставьте комментарий...'
+							onChange={({ target }) =>
+								setNewComment(target.value)
+							}
+						/>
+						<SendComment
+							onClick={() =>
+								onLeaveComment(postId, userId, newComment)
+							}
+						>
+							<Icon id='fa-check-square-o' size='1.5rem' />
+						</SendComment>
+					</div>
+				)}
 				<div className='comment'>
 					{comments.map(({ author, content, id, publishedDate }) => (
 						<Comment

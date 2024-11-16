@@ -1,8 +1,11 @@
-import { useDispatch } from 'react-redux';
-import { CLOSE_MODAL, openModal, removePostAsync } from '../../../action';
-import { Icon, IconWithText } from '../../../shared';
-import { useServerRequest } from '../../../hooks';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
+import { useServerRequest } from '../../../hooks';
+import { CLOSE_MODAL, openModal, removePostAsync } from '../../../action';
+import { selectRole } from '../../../selectors';
+import { checkAccess } from '../../../utils';
+import { Icon, IconWithText } from '../../../shared';
+import { ROLE } from '../../../constants';
 import styled from 'styled-components';
 
 const Option = styled.div`
@@ -26,7 +29,10 @@ const PostControlPanelContainer = ({
 	const dispatch = useDispatch();
 	const requestServer = useServerRequest();
 	const navigate = useNavigate();
+	const currentRole = useSelector(selectRole);
+
 	const isNewPostPage = id === '';
+	const isAdmin = checkAccess([ROLE.ADMIN], currentRole);
 
 	const onRemovePost = (postId) => {
 		dispatch(
@@ -52,18 +58,20 @@ const PostControlPanelContainer = ({
 				<IconWithText iconId={'fa-calendar-o'} content={publishedAt} />
 			)}
 
-			<div className='optionsWrapper'>
-				<Option onClick={() => handler()}>
-					{children}
-					<Icon id={iconId} size='1.4rem' />
-				</Option>
-				{!isNewPostPage && (
-					<Option onClick={() => onRemovePost(id)}>
-						Удалить
-						<Icon id='fa-trash-o' size='1.4rem' />
+			{isAdmin && (
+				<div className='optionsWrapper'>
+					<Option onClick={() => handler()}>
+						{children}
+						<Icon id={iconId} size='1.4rem' />
 					</Option>
-				)}
-			</div>
+					{!isNewPostPage && (
+						<Option onClick={() => onRemovePost(id)}>
+							Удалить
+							<Icon id='fa-trash-o' size='1.4rem' />
+						</Option>
+					)}
+				</div>
+			)}
 		</div>
 	);
 };

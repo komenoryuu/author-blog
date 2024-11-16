@@ -7,18 +7,21 @@ import { selectPost } from '../../selectors';
 import { Comments } from './comments';
 import { PostForm } from './post-form';
 import { PostContent } from './post-content';
-import styled from 'styled-components';
 import { Loader } from '../../shared';
-import { ErrorPage } from '../../components/error-page/error-page';
+import { ErrorPage, AccessDeniedPage } from '../../components';
+import { ROLE } from '../../constants';
+import styled from 'styled-components';
 
 const PostContainer = ({ className }) => {
-	const [error, setError] = useState(null);
-	const isCreating = useMatch('/post');
-	const isEditing = useMatch('/post/:id/edit');
 	const dispatch = useDispatch();
 	const params = useParams();
 	const requestServer = useServerRequest();
+
+	const [error, setError] = useState(null);
+	const isCreating = !!useMatch('/post');
+	const isEditing = !!useMatch('/post/:id/edit');
 	const post = useSelector(selectPost);
+
 	const isLoadingData = post.id === '';
 
 	useLayoutEffect(() => {
@@ -33,21 +36,29 @@ const PostContainer = ({ className }) => {
 		);
 	}, [dispatch, params.id, requestServer, isCreating]);
 
+	const AdminPage = (
+		<AccessDeniedPage access={[ROLE.ADMIN]} serverError={error}>
+			<PostForm post={post} />
+		</AccessDeniedPage>
+	);
+
+	const UserPage = isLoadingData ? (
+		<Loader />
+	) : (
+		<>
+			<PostContent post={post} />
+			<Comments comments={post.comments} postId={post.id} />
+		</>
+	);
+
 	return (
 		<div className={className}>
-			{error ? (
+			{isCreating || isEditing ? (
+				AdminPage
+			) : error ? (
 				<ErrorPage error={error} />
-			) : isCreating || isEditing ? (
-				<PostForm post={post} />
-			) : isLoadingData ? (
-				<div className='loaderWrapper'>
-					<Loader />
-				</div>
 			) : (
-				<>
-					<PostContent post={post} />
-					<Comments comments={post.comments} postId={post.id} />
-				</>
+				UserPage
 			)}
 		</div>
 	);

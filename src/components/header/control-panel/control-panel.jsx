@@ -4,6 +4,7 @@ import { Button, IconWithText } from '../../../shared';
 import { ROLE } from '../../../constants';
 import { selectRole, selectLogin, selectSession } from '../../../selectors';
 import { logout } from '../../../action';
+import { checkAccess } from '../../../utils';
 import styled from 'styled-components';
 
 const StyledLink = styled(Link)`
@@ -37,6 +38,8 @@ const ControlPanelContainer = ({ className }) => {
 	const session = useSelector(selectSession);
 	const dispatch = useDispatch();
 
+	const isAdmin = checkAccess([ROLE.ADMIN], currentRole);
+
 	const onLogout = () => {
 		dispatch(logout(session));
 		sessionStorage.removeItem('userData');
@@ -46,15 +49,22 @@ const ControlPanelContainer = ({ className }) => {
 	return (
 		<div className={className}>
 			<Nav>
-				<StyledLink to='/post'>
-					<IconWithText
-						iconId='fa-file-text-o'
-						content={'Новая статья'}
-					/>
-				</StyledLink>
-				<StyledLink to='/users'>
-					<IconWithText iconId='fa-user-o' content={'Пользователи'} />
-				</StyledLink>
+				{isAdmin && (
+					<>
+						<StyledLink to='/post'>
+							<IconWithText
+								iconId='fa-file-text-o'
+								content={'Новая статья'}
+							/>
+						</StyledLink>
+						<StyledLink to='/users'>
+							<IconWithText
+								iconId='fa-user-o'
+								content={'Пользователи'}
+							/>
+						</StyledLink>
+					</>
+				)}
 				<StyledLink onClick={() => navigate(-1)}>
 					<IconWithText iconId='fa-hand-o-left' content={'Назад'} />
 				</StyledLink>

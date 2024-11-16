@@ -1,8 +1,10 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useServerRequest } from '../../../../hooks';
-import { Icon, IconWithText } from '../../../../shared';
 import { removeCommentAsync, openModal, CLOSE_MODAL } from '../../../../action';
+import { selectRole } from '../../../../selectors';
+import { Icon, IconWithText } from '../../../../shared';
 import styled from 'styled-components';
+import { ROLE } from '../../../../constants';
 
 const UserInfo = styled.div`
 	display: flex;
@@ -21,6 +23,9 @@ const CommentContainer = ({
 }) => {
 	const dispatch = useDispatch();
 	const requestServer = useServerRequest();
+	const currentRole = useSelector(selectRole);
+
+	const isAdminOrModer = [[ROLE.ADMIN, ROLE.MODER]].includes(currentRole);
 
 	const onRemoveComment = (commentId) => {
 		dispatch(
@@ -51,9 +56,14 @@ const CommentContainer = ({
 				</UserInfo>
 				<p>{content}</p>
 			</div>
-			<div className='deleteComment' onClick={() => onRemoveComment(id)}>
-				<Icon id='fa-trash-o' size='1.5rem' />
-			</div>
+			{isAdminOrModer && (
+				<div
+					className='deleteComment'
+					onClick={() => onRemoveComment(id)}
+				>
+					<Icon id='fa-trash-o' size='1.5rem' />
+				</div>
+			)}
 		</div>
 	);
 };
