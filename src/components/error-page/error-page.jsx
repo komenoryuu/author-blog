@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { IconWithText } from '../../shared';
+import { PROP_TYPE } from '../../constants';
 
 const ErrorPageContainer = ({ className, error }) => {
 	return (
@@ -30,3 +31,7 @@ export const ErrorPage = styled(ErrorPageContainer)`
 		font-size: 1.7rem;
 	}
 `;
+
+ErrorPage.propTypes = {
+	error: PROP_TYPE.ERROR,
+};

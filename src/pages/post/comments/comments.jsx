@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useServerRequest } from '../../../hooks';
@@ -5,7 +6,7 @@ import { addCommentAsync } from '../../../state/action';
 import { selectRole, selectUserId } from '../../../state/selectors';
 import { H2, Icon } from '../../../shared';
 import { Comment } from './comment';
-import { ROLE } from '../../../constants';
+import { PROP_TYPE, ROLE } from '../../../constants';
 import styled from 'styled-components';
 
 const SendComment = styled.div`
@@ -74,7 +75,7 @@ const CommentsContainer = ({ className, comments, postId }) => {
 							id={id}
 							postId={postId}
 							author={author}
-							publishedAt={publishedDate}
+							publishedDate={publishedDate}
 							content={content}
 						/>
 					))}
@@ -109,3 +110,8 @@ export const Comments = styled(CommentsContainer)`
 		}
 	}
 `;
+
+Comments.propTypes = {
+	comments: PropTypes.arrayOf(PROP_TYPE.COMMENTS).isRequired,
+	postId: PropTypes.string.isRequired,
+};

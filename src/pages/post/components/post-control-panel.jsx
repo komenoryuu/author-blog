@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { useServerRequest } from '../../../hooks';
@@ -11,7 +12,7 @@ import styled from 'styled-components';
 const PostControlPanelContainer = ({
 	className,
 	id,
-	publishedAt,
+	publishedDate,
 	iconId,
 	handler,
 	children,
@@ -45,7 +46,10 @@ const PostControlPanelContainer = ({
 	return (
 		<div className={className}>
 			{!isNewPostPage && (
-				<IconWithText iconId={'fa-calendar-o'} content={publishedAt} />
+				<IconWithText
+					iconId={'fa-calendar-o'}
+					content={publishedDate}
+				/>
 			)}
 
 			{isAdmin && (
@@ -88,3 +92,11 @@ export const PostControlPanel = styled(PostControlPanelContainer)`
 		}
 	}
 `;
+
+PostControlPanel.propTypes = {
+	id: PropTypes.string.isRequired,
+	publishedDate: PropTypes.string.isRequired,
+	iconId: PropTypes.string.isRequired,
+	handler: PropTypes.func.isRequired,
+	children: PropTypes.node.isRequired,
+};

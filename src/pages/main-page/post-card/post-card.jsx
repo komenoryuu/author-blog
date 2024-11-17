@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { IconWithText } from '../../../shared';
 import styled from 'styled-components';
@@ -7,14 +8,14 @@ const PostCardContainer = ({
 	id,
 	title,
 	imageUrl,
-	publishedAt,
+	publishedDate,
 	commentsCount,
 }) => {
 	return (
 		<div className={className}>
 			<Link to={`/post/${id}`}>
 				<img className='postImage' src={imageUrl} alt='postImage' />
-				<IconWithText iconId='fa-calendar-o' content={publishedAt} />
+				<IconWithText iconId='fa-calendar-o' content={publishedDate} />
 				<h4>{title}</h4>
 				<div className='comments'>Комментариев: {commentsCount}</div>
 			</Link>
@@ -38,3 +39,11 @@ export const PostCard = styled(PostCardContainer)`
 		}
 	}
 `;
+
+PostCard.propTypes = {
+	id: PropTypes.string.isRequired,
+	title: PropTypes.string.isRequired,
+	imageUrl: PropTypes.string.isRequired,
+	publishedDate: PropTypes.string.isRequired,
+	commentsCount: PropTypes.number.isRequired,
+};

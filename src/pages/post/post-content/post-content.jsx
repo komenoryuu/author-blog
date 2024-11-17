@@ -2,10 +2,11 @@ import { useNavigate } from 'react-router';
 import { PostControlPanel } from '../components/post-control-panel';
 import { H3 } from '../../../shared';
 import styled from 'styled-components';
+import { PROP_TYPE } from '../../../constants';
 
 const PostContentContainer = ({
 	className,
-	post: { id, title, imageUrl, content, publishedAt },
+	post: { id, title, imageUrl, content, publishedDate },
 }) => {
 	const navigate = useNavigate();
 
@@ -17,7 +18,7 @@ const PostContentContainer = ({
 			<H3 margin='24px'>{title}</H3>
 			<PostControlPanel
 				id={id}
-				publishedAt={publishedAt}
+				publishedDate={publishedDate}
 				iconId={'fa-pencil-square-o'}
 				handler={onNavigate}
 			>
@@ -41,3 +42,7 @@ export const PostContent = styled(PostContentContainer)`
 		white-space: pre-line;
 	}
 `;
+
+PostContent.propTypes = {
+	post: PROP_TYPE.POST.isRequired,
+};

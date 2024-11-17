@@ -8,6 +8,6 @@ export const createPost = ({ title, imageUrl, content }) =>
 			title,
 			image_url: imageUrl,
 			content,
-			published_at: generateDate(),
+			published_date: generateDate(),
 		}),
 	}).then((createdPost) => createdPost.json());

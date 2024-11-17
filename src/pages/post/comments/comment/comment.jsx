@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { useServerRequest } from '../../../../hooks';
 import {
@@ -15,7 +16,7 @@ const CommentContainer = ({
 	id,
 	postId,
 	author,
-	publishedAt,
+	publishedDate,
 	content,
 }) => {
 	const dispatch = useDispatch();
@@ -47,7 +48,7 @@ const CommentContainer = ({
 					<div style={{ fontWeight: 400 }}>
 						<IconWithText
 							iconId='fa-calendar-o'
-							content={publishedAt}
+							content={publishedDate}
 						/>
 					</div>
 				</div>
@@ -89,3 +90,11 @@ export const Comment = styled(CommentContainer)`
 		}
 	}
 `;
+
+Comment.propTypes = {
+	id: PropTypes.string.isRequired,
+	postId: PropTypes.string.isRequired,
+	author: PropTypes.string.isRequired,
+	publishedDate: PropTypes.string.isRequired,
+	content: PropTypes.string.isRequired,
+};

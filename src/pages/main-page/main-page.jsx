@@ -67,7 +67,7 @@ const MainPageContainer = ({ className }) => {
 										id,
 										title,
 										imageUrl,
-										publishedAt,
+										publishedDate,
 										commentsCount,
 									}) => (
 										<PostCard
@@ -75,7 +75,7 @@ const MainPageContainer = ({ className }) => {
 											id={id}
 											title={title}
 											imageUrl={imageUrl}
-											publishedAt={publishedAt}
+											publishedDate={publishedDate}
 											commentsCount={commentsCount}
 										/>
 									),

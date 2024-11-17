@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { Button } from '../../../shared';
 import styled from 'styled-components';
 
@@ -45,3 +46,9 @@ export const Pagination = styled(PaginationContainer)`
 		}
 	}
 `;
+
+Pagination.propTypes = {
+	page: PropTypes.number.isRequired,
+	setPage: PropTypes.func.isRequired,
+	lastPage: PropTypes.number.isRequired,
+};

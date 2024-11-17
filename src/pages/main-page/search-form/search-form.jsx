@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { H2, Icon, Input } from '../../../shared';
 import styled from 'styled-components';
 
@@ -51,3 +52,8 @@ export const SearchForm = styled(SearchFormContainer)`
 		}
 	}
 `;
+
+SearchForm.propTypes = {
+	searchPhrase: PropTypes.string.isRequired,
+	onChange: PropTypes.func.isRequired,
+};

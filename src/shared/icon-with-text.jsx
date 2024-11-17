@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { Icon } from './icon';
 import styled from 'styled-components';
 
@@ -21,3 +22,9 @@ export const IconWithText = styled(IconWithTextContainer)`
 	align-items: center;
 	gap: 8px;
 `;
+
+IconWithText.propTypes = {
+	iconId: PropTypes.string.isRequired,
+	iconSize: PropTypes.string,
+	content: PropTypes.string.isRequired,
+};

@@ -7,10 +7,11 @@ import { Input } from '../../../shared';
 import { PostControlPanel } from '../components/post-control-panel';
 import { sanitizeContent } from './utils/sanitizeContent';
 import styled from 'styled-components';
+import { PROP_TYPE } from '../../../constants';
 
 const PostFormContainer = ({
 	className,
-	post: { id, title, imageUrl, content, publishedAt },
+	post: { id, title, imageUrl, content, publishedDate },
 }) => {
 	const [imageUrlValue, setImageUrlValue] = useState(imageUrl);
 	const [titleValue, setTitlelValue] = useState(title);
@@ -63,7 +64,7 @@ const PostFormContainer = ({
 			</div>
 			<PostControlPanel
 				id={id}
-				publishedAt={publishedAt}
+				publishedDate={publishedDate}
 				iconId={'fa-check-square-o'}
 				handler={onSave}
 			>
@@ -110,3 +111,7 @@ export const PostForm = styled(PostFormContainer)`
 		}
 	}
 `;
+
+PostForm.propTypes = {
+	post: PROP_TYPE.POST.isRequired,
+};

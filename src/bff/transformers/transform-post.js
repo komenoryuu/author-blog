@@ -3,5 +3,5 @@ export const transformPost = (dbPost) => ({
 	title: dbPost.title,
 	imageUrl: dbPost.image_url,
 	content: dbPost.content,
-	publishedAt: dbPost.published_at,
+	publishedDate: dbPost.published_date,
 });
