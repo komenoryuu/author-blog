@@ -36,6 +36,8 @@ export const PostContent = styled(PostContentContainer)`
 	& > img {
 		float: left;
 		margin: 0px 24px 10px 0px;
+		max-width: 384px;
+		max-height: 240px;
 	}
 	& > p {
 		font-size: 1.2rem;

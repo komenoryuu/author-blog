@@ -1,3 +1,4 @@
+import { transformUser } from '../transformers';
 import { generateDate } from '../utils';
 
 export const createUser = (login, password) =>
@@ -10,4 +11,6 @@ export const createUser = (login, password) =>
 			registered_date: generateDate(),
 			role_id: 2,
 		}),
-	}).then((createdUser) => createdUser.json());
+	})
+		.then((createdUser) => createdUser.json())
+		.then((user) => transformUser(user));

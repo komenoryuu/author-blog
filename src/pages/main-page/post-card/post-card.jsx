@@ -29,6 +29,8 @@ export const PostCard = styled(PostCardContainer)`
 		text-align: start;
 		.postImage {
 			margin-bottom: 6px;
+			max-width: 384px;
+			max-height: 240px;
 		}
 		h4 {
 			margin-top: 3px;
