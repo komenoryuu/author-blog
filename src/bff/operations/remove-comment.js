@@ -25,7 +25,7 @@ export const removeComment = async (hash, postId, commentId) => {
 		error: null,
 		response: {
 			...post,
-			comments: commentsWithAuthor(postId),
+			comments: commentsWithAuthor,
 		},
 	};
 };
