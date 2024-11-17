@@ -693,26 +693,7 @@
       "published_date": "21.11.2024",
       "content": "Мамонты на месте?",
       "id": "Z2suVns"
-    },
-    {
-      "post_id": "002",
-      "author_id": 17,
-      "published_date": "17.11.2024",
-      "content": "123123",
-      "id": "e6oCASQ"
     }
   ],
-  "sessions": [
-    {
-      "hash": "0.52673623243670231186541741408291272819042205810547",
-      "user": {
-        "id": 1,
-        "login": "komenoryuu",
-        "password": "gohanDESU123",
-        "registeredDate": "07.11.2024",
-        "roleId": 0
-      },
-      "id": 1
-    }
-  ]
+  "sessions": []
 }

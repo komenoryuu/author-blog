@@ -41,6 +41,8 @@ const CommentsContainer = ({ className, comments, postId }) => {
 	const isUserAuthorize = currentRole !== ROLE.GUEST;
 
 	const onLeaveComment = (postId, userId, content) => {
+		if (!newComment) return;
+
 		dispatch(addCommentAsync(requestServer, postId, userId, content));
 		setNewComment('');
 	};
