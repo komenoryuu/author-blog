@@ -1,35 +1,15 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '../../../state/action';
+import {
+	selectRole,
+	selectLogin,
+	selectSession,
+} from '../../../state/selectors';
 import { Button, IconWithText } from '../../../shared';
-import { ROLE } from '../../../constants';
-import { selectRole, selectLogin, selectSession } from '../../../selectors';
-import { logout } from '../../../action';
 import { checkAccess } from '../../../utils';
+import { ROLE } from '../../../constants';
 import styled from 'styled-components';
-
-const StyledLink = styled(Link)`
-	font-size: 1.1rem;
-	display: flex;
-	gap: 7px;
-	transition: all 0.3s;
-	&:hover {
-		color: #7f56d9;
-	}
-`;
-
-const Nav = styled.nav`
-	display: flex;
-	gap: 30px;
-`;
-
-const UserLogin = styled.div`
-	max-height: 100%;
-	font-weight: 600;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	gap: 5px;
-`;
 
 const ControlPanelContainer = ({ className }) => {
 	const navigate = useNavigate();
@@ -37,7 +17,6 @@ const ControlPanelContainer = ({ className }) => {
 	const userLogin = useSelector(selectLogin);
 	const session = useSelector(selectSession);
 	const dispatch = useDispatch();
-
 	const isAdmin = checkAccess([ROLE.ADMIN], currentRole);
 
 	const onLogout = () => {
@@ -48,38 +27,38 @@ const ControlPanelContainer = ({ className }) => {
 
 	return (
 		<div className={className}>
-			<Nav>
+			<nav>
 				{isAdmin && (
 					<>
-						<StyledLink to='/post'>
+						<Link to='/post'>
 							<IconWithText
 								iconId='fa-file-text-o'
 								content={'Новая статья'}
 							/>
-						</StyledLink>
-						<StyledLink to='/users'>
+						</Link>
+						<Link to='/users'>
 							<IconWithText
 								iconId='fa-user-o'
 								content={'Пользователи'}
 							/>
-						</StyledLink>
+						</Link>
 					</>
 				)}
-				<StyledLink onClick={() => navigate(-1)}>
+				<Link onClick={() => navigate(-1)}>
 					<IconWithText iconId='fa-hand-o-left' content={'Назад'} />
-				</StyledLink>
-			</Nav>
+				</Link>
+			</nav>
 			{currentRole === ROLE.GUEST ? (
 				<Button width='118px' onClick={() => navigate('/login')}>
 					Войти
 				</Button>
 			) : (
-				<UserLogin>
+				<div className='logout'>
 					{userLogin}
 					<Button width='118px' height='38px' onClick={onLogout}>
 						Выйти
 					</Button>
-				</UserLogin>
+				</div>
 			)}
 		</div>
 	);
@@ -89,4 +68,25 @@ export const ControlPanel = styled(ControlPanelContainer)`
 	display: flex;
 	align-items: center;
 	gap: 30px;
+	nav {
+		display: flex;
+		gap: 30px;
+		a {
+			font-size: 1.1rem;
+			display: flex;
+			gap: 7px;
+			transition: all 0.3s;
+			&:hover {
+				color: #7f56d9;
+			}
+		}
+	}
+	.logout {
+		max-height: 100%;
+		font-weight: 600;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 5px;
+	}
 `;

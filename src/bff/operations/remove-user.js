@@ -1,8 +1,8 @@
-import { deleteUserRequest } from '../api';
+import { deleteUser } from '../api';
 import { ROLE } from '../constants';
 import { sessions } from '../sessions';
 
-export const deleteUser = async (hash, userId) => {
+export const removeUser = async (hash, userId) => {
 	const ACCESS_ROLES = [ROLE.ADMIN];
 
 	const access = await sessions.access(hash, ACCESS_ROLES);
@@ -14,7 +14,7 @@ export const deleteUser = async (hash, userId) => {
 		};
 	}
 
-	deleteUserRequest(userId);
+	deleteUser(userId);
 
 	return {
 		error: null,

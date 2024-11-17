@@ -1,6 +1,6 @@
 import { transformPost } from '../transformers';
 
-export const getPosts = async (page, limit, searchPhrase) =>
+export const readPosts = async (page, limit, searchPhrase) =>
 	fetch(
 		`http://localhost:5000/posts?title_like=${searchPhrase}&_page=${page}&_limit=${limit}`,
 	)

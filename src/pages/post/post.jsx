@@ -1,9 +1,9 @@
 import { useEffect, useLayoutEffect, useState } from 'react';
-import { useMatch, useParams } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
+import { useMatch, useParams } from 'react-router';
 import { useServerRequest } from '../../hooks';
-import { loadPostAsync, RESET_POST_DATA } from '../../action';
-import { selectPost } from '../../selectors';
+import { loadPostAsync, RESET_POST_DATA } from '../../state/action';
+import { selectPost } from '../../state/selectors';
 import { Comments } from './comments';
 import { PostForm } from './post-form';
 import { PostContent } from './post-content';

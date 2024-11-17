@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useServerRequest } from '../../hooks';
+import { selectRole } from '../../state/selectors';
 import { AccessDeniedPage } from '../../components';
 import { H2, Loader } from '../../shared';
 import { UserRow } from './user-row';
-import { ROLE } from '../../constants';
 import { checkAccess } from '../../utils';
-import { selectRole } from '../../selectors';
+import { ROLE } from '../../constants';
 import styled from 'styled-components';
 
 const Th = styled.th`
@@ -21,6 +21,7 @@ const UsersContainer = ({ className }) => {
 	const [updateUsers, setUpdateUsers] = useState(false);
 	const userRole = useSelector(selectRole);
 	const requestServer = useServerRequest();
+
 	const isLoadingData = users.length === 0;
 
 	useEffect(() => {
@@ -45,7 +46,7 @@ const UsersContainer = ({ className }) => {
 	const onUserDelete = (userId) => {
 		if (!checkAccess([ROLE.ADMIN], userRole)) return;
 
-		requestServer('deleteUser', userId).then(() =>
+		requestServer('removeUser', userId).then(() =>
 			setUpdateUsers(!updateUsers),
 		);
 	};
@@ -101,8 +102,7 @@ export const Users = styled(UsersContainer)`
 	flex-direction: column;
 	align-items: center;
 	width: 80%;
-
-	& > table {
+	table {
 		height: 100%;
 		width: 100%;
 		table-layout: fixed;
@@ -110,8 +110,7 @@ export const Users = styled(UsersContainer)`
 		overflow: hidden;
 		border-radius: 8px;
 		box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-
-		& > thead {
+		thead {
 			background-color: #7f56d9;
 			color: #fff;
 		}

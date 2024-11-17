@@ -32,7 +32,7 @@ const WeatherContainer = ({ className }) => {
 		<div className={className}>
 			<div>
 				<WeatherCity>
-					<span style={{ fontWeight: 600 }}>{weather.city},</span>{' '}
+					<span style={{ fontWeight: 600 }}>{weather.city},</span>
 					{weather.weather}
 					<img src={weather.icon} alt='weatherIcon' />
 				</WeatherCity>

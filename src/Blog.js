@@ -1,11 +1,11 @@
-import { Route, Routes } from 'react-router-dom';
-import styled from 'styled-components';
 import { useLayoutEffect } from 'react';
 import { useDispatch } from 'react-redux';
+import { Route, Routes } from 'react-router-dom';
 import { Header, Footer, Modal, ErrorPage } from './components';
 import { Login, Register, Users, Post, MainPage } from './pages';
-import { setUser } from './action';
+import { setUser } from './state/action';
 import { ERROR } from './constants';
+import styled from 'styled-components';
 
 const Container = styled.div`
 	margin: 0 auto;

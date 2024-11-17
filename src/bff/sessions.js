@@ -1,4 +1,4 @@
-import { createSession, getSession, deleteSession } from './api';
+import { createSession, readSession, deleteSession } from './api';
 
 export const sessions = {
 	create(user) {
@@ -9,14 +9,14 @@ export const sessions = {
 		return hash;
 	},
 	async remove(hash) {
-		const session = await getSession(hash);
+		const session = await readSession(hash);
 
 		if (!session) return;
 
 		deleteSession(session.id);
 	},
 	async access(hash, ACCESS_ROLES) {
-		const dbSession = await getSession(hash);
+		const dbSession = await readSession(hash);
 
 		return !!dbSession?.user && ACCESS_ROLES.includes(dbSession.user.roleId);
 	},

@@ -1,8 +1,8 @@
 import { useLayoutEffect, useRef, useState } from 'react';
-import { useNavigate } from 'react-router';
 import { useDispatch } from 'react-redux';
-import { savePostAsync } from '../../../action';
+import { useNavigate } from 'react-router';
 import { useServerRequest } from '../../../hooks';
+import { savePostAsync } from '../../../state/action';
 import { Input } from '../../../shared';
 import { PostControlPanel } from '../components/post-control-panel';
 import { sanitizeContent } from './utils/sanitizeContent';
@@ -15,9 +15,11 @@ const PostFormContainer = ({
 	const [imageUrlValue, setImageUrlValue] = useState(imageUrl);
 	const [titleValue, setTitlelValue] = useState(title);
 	const contentRef = useRef(null);
+
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const requestServer = useServerRequest();
+
 	const isNewPostPage = id === '';
 
 	useLayoutEffect(() => {

@@ -1,17 +1,14 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useServerRequest } from '../../../../hooks';
-import { removeCommentAsync, openModal, CLOSE_MODAL } from '../../../../action';
-import { selectRole } from '../../../../selectors';
+import {
+	removeCommentAsync,
+	openModal,
+	CLOSE_MODAL,
+} from '../../../../state/action';
+import { selectRole } from '../../../../state/selectors';
 import { Icon, IconWithText } from '../../../../shared';
-import styled from 'styled-components';
 import { ROLE } from '../../../../constants';
-
-const UserInfo = styled.div`
-	display: flex;
-	justify-content: space-between;
-	margin-bottom: 8px;
-	font-weight: 600;
-`;
+import styled from 'styled-components';
 
 const CommentContainer = ({
 	className,
@@ -25,7 +22,7 @@ const CommentContainer = ({
 	const requestServer = useServerRequest();
 	const currentRole = useSelector(selectRole);
 
-	const isAdminOrModer = [[ROLE.ADMIN, ROLE.MODER]].includes(currentRole);
+	const isAdminOrModer = [ROLE.ADMIN, ROLE.MODER].includes(currentRole);
 
 	const onRemoveComment = (commentId) => {
 		dispatch(
@@ -45,7 +42,7 @@ const CommentContainer = ({
 	return (
 		<div className={className}>
 			<div className='comment'>
-				<UserInfo>
+				<div className='userInfo'>
 					<IconWithText iconId='fa-user-o' content={author} />
 					<div style={{ fontWeight: 400 }}>
 						<IconWithText
@@ -53,7 +50,7 @@ const CommentContainer = ({
 							content={publishedAt}
 						/>
 					</div>
-				</UserInfo>
+				</div>
 				<p>{content}</p>
 			</div>
 			{isAdminOrModer && (
@@ -77,6 +74,12 @@ export const Comment = styled(CommentContainer)`
 		border-radius: 8px;
 		padding: 12px;
 		font-size: 1.1rem;
+		.userInfo {
+			display: flex;
+			justify-content: space-between;
+			margin-bottom: 8px;
+			font-weight: 600;
+		}
 	}
 	.deleteComment {
 		cursor: pointer;

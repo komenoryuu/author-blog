@@ -1,4 +1,4 @@
-import { getPost } from '../api';
+import { readPost } from '../api';
 import { getPostCommentsWithAuthor } from '../utils';
 
 export const fetchPost = async (postId) => {
@@ -6,7 +6,7 @@ export const fetchPost = async (postId) => {
 	let error;
 
 	try {
-		post = await getPost(postId);
+		post = await readPost(postId);
 	} catch (postError) {
 		error = postError;
 	}

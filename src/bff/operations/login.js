@@ -1,8 +1,8 @@
-import { getUser } from '../api';
+import { readUser } from '../api';
 import { sessions } from '../sessions';
 
 export const login = async (authLogin, authPassword) => {
-	const user = await getUser(authLogin);
+	const user = await readUser(authLogin);
 
 	if (!user) {
 		return {

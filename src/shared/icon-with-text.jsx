@@ -6,9 +6,10 @@ const IconWithTextContainer = ({
 	iconId,
 	iconSize = '1.2rem',
 	content,
+	...props
 }) => {
 	return (
-		<div className={className}>
+		<div className={className} {...props}>
 			<Icon id={iconId} size={iconSize} />
 			<span>{content}</span>
 		</div>

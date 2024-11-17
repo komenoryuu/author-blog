@@ -1,8 +1,8 @@
 import { sessions } from '../sessions';
-import { getUser, createUser } from '../api';
+import { readUser, createUser } from '../api';
 
 export const register = async (regLogin, regPassword) => {
-	const existedUser = await getUser(regLogin);
+	const existedUser = await readUser(regLogin);
 
 	if (existedUser) {
 		return {

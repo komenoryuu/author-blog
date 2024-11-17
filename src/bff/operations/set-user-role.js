@@ -1,8 +1,8 @@
-import { setUserRole } from '../api';
+import { updateUserRole } from '../api';
 import { ROLE } from '../constants';
 import { sessions } from '../sessions';
 
-export const updateUserRole = async (hash, userId, newSelectedRoleId) => {
+export const setUserRole = async (hash, userId, newSelectedRoleId) => {
 	const ACCESS_ROLES = [ROLE.ADMIN];
 
 	const access = await sessions.access(hash, ACCESS_ROLES);
@@ -14,7 +14,7 @@ export const updateUserRole = async (hash, userId, newSelectedRoleId) => {
 		};
 	}
 
-	setUserRole(userId, newSelectedRoleId);
+	updateUserRole(userId, newSelectedRoleId);
 
 	return {
 		error: null,

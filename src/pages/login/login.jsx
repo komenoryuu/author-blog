@@ -1,31 +1,16 @@
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, Navigate } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { useResetForm } from '../../hooks';
+import { setUser } from '../../state/action';
+import { selectRole } from '../../state/selectors';
 import { server } from '../../bff';
 import { Input, Button, H2, FormErrorMessage } from '../../shared';
-import { setUser } from '../../action';
-import { selectRole } from '../../selectors';
 import { ROLE } from '../../constants';
 import styled from 'styled-components';
-
-const Register = styled.div`
-	text-align: center;
-	font-size: 1.1rem;
-`;
-
-const RegisterLink = styled(Link)`
-	font-size: 1.1rem;
-	color: #7f56d9;
-	text-decoration: underline;
-	transition: all 0.3s;
-	&:hover {
-		color: #6027db;
-	}
-`;
 
 const loginSchema = yup.object().shape({
 	login: yup.string().required('Логин обязателен'),
@@ -52,7 +37,7 @@ const LoginContainer = ({ className }) => {
 
 	useResetForm(reset);
 
-	const onSubmit = ({ login, password }) => {
+	const login = ({ login, password }) => {
 		server.login(login, password).then(({ error, response }) => {
 			if (error) {
 				setServerError(error);
@@ -73,7 +58,7 @@ const LoginContainer = ({ className }) => {
 	return (
 		<div className={className}>
 			<H2>Авторизация</H2>
-			<form onSubmit={handleSubmit(onSubmit)}>
+			<form onSubmit={handleSubmit(login)}>
 				{errorMessage && (
 					<FormErrorMessage>{errorMessage}</FormErrorMessage>
 				)}
@@ -94,13 +79,10 @@ const LoginContainer = ({ className }) => {
 				<Button type='submit' disabled={!!errorMessage}>
 					Войти
 				</Button>
-				<Register>
-					Нет аккаунта?{' '}
-					<RegisterLink to='/register'>
-						Зарегистрироваться
-					</RegisterLink>
-				</Register>
 			</form>
+			<div className='register'>
+				Нет аккаунта? <Link to='/register'>Зарегистрироваться</Link>
+			</div>
 		</div>
 	);
 };
@@ -110,10 +92,19 @@ export const Login = styled(LoginContainer)`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	& > form {
+	form {
 		width: 518px;
 		display: flex;
 		flex-direction: column;
 		gap: 20px;
+		margin-bottom: 20px;
+	}
+	.register {
+		text-align: center;
+		font-size: 1.1rem;
+		a {
+			color: #7f56d9;
+			text-decoration: underline;
+		}
 	}
 `;

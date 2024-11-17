@@ -1,22 +1,12 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { useServerRequest } from '../../../hooks';
-import { CLOSE_MODAL, openModal, removePostAsync } from '../../../action';
-import { selectRole } from '../../../selectors';
+import { CLOSE_MODAL, openModal, removePostAsync } from '../../../state/action';
+import { selectRole } from '../../../state/selectors';
 import { checkAccess } from '../../../utils';
-import { Icon, IconWithText } from '../../../shared';
+import { IconWithText } from '../../../shared';
 import { ROLE } from '../../../constants';
 import styled from 'styled-components';
-
-const Option = styled.div`
-	display: flex;
-	gap: 8px;
-	cursor: pointer;
-	transition: all 0.2s;
-	&:hover {
-		color: #7f56d9;
-	}
-`;
 
 const PostControlPanelContainer = ({
 	className,
@@ -60,15 +50,19 @@ const PostControlPanelContainer = ({
 
 			{isAdmin && (
 				<div className='optionsWrapper'>
-					<Option onClick={() => handler()}>
-						{children}
-						<Icon id={iconId} size='1.4rem' />
-					</Option>
+					<IconWithText
+						iconId={iconId}
+						iconSize='1.4rem'
+						content={children}
+						onClick={() => handler()}
+					/>
 					{!isNewPostPage && (
-						<Option onClick={() => onRemovePost(id)}>
-							Удалить
-							<Icon id='fa-trash-o' size='1.4rem' />
-						</Option>
+						<IconWithText
+							iconId='fa-trash-o'
+							iconSize='1.4rem'
+							content='Удалить'
+							onClick={() => onRemovePost(id)}
+						/>
 					)}
 				</div>
 			)}
@@ -85,5 +79,12 @@ export const PostControlPanel = styled(PostControlPanelContainer)`
 	.optionsWrapper {
 		display: flex;
 		gap: 20px;
+		div {
+			cursor: pointer;
+			transition: all 0.2s;
+			&:hover {
+				color: #7f56d9;
+			}
+		}
 	}
 `;

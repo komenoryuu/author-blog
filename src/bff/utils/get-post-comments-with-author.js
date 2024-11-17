@@ -1,7 +1,7 @@
-import { getComments, readUsers } from '../api';
+import { readComments, readUsers } from '../api';
 
 export const getPostCommentsWithAuthor = async (postId) => {
-	const comments = await getComments(postId);
+	const comments = await readComments(postId);
 
 	const users = await readUsers();
 

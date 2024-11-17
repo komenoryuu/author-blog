@@ -1,6 +1,6 @@
 import { transformPost } from '../transformers';
 
-export const getPost = async (postId) =>
+export const readPost = async (postId) =>
 	fetch(`http://localhost:5000/posts/${postId}`)
 		.then((response) => {
 			if (response.ok) return response;

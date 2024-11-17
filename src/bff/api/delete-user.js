@@ -1,4 +1,4 @@
-export const deleteUserRequest = (userId) => {
+export const deleteUser= (userId) => {
 	fetch(`http://localhost:5000/users/${userId}`, {
 		method: 'DELETE',
 	});

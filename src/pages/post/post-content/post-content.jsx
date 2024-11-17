@@ -1,6 +1,7 @@
-import styled from 'styled-components';
-import { PostControlPanel } from '../components/post-control-panel';
 import { useNavigate } from 'react-router';
+import { PostControlPanel } from '../components/post-control-panel';
+import { H3 } from '../../../shared';
+import styled from 'styled-components';
 
 const PostContentContainer = ({
 	className,
@@ -13,7 +14,7 @@ const PostContentContainer = ({
 	return (
 		<div className={className}>
 			<img src={imageUrl} alt='post_image' />
-			<h3>{title}</h3>
+			<H3 margin='24px'>{title}</H3>
 			<PostControlPanel
 				id={id}
 				publishedAt={publishedAt}
@@ -34,10 +35,6 @@ export const PostContent = styled(PostContentContainer)`
 	& > img {
 		float: left;
 		margin: 0px 24px 10px 0px;
-	}
-	& > h3 {
-		font-size: 1.8rem;
-		margin-bottom: 24px;
 	}
 	& > p {
 		font-size: 1.2rem;

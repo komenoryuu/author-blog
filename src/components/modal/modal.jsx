@@ -1,11 +1,11 @@
 import { useSelector } from 'react-redux';
-import { Button } from '../../shared';
 import {
 	selectModalText,
 	selectModalOpen,
 	selectModalConfirm,
 	selectModalCancel,
-} from '../../selectors';
+} from '../../state/selectors';
+import { Button, H3 } from '../../shared';
 import styled from 'styled-components';
 
 const ModalContainer = ({ className }) => {
@@ -20,7 +20,7 @@ const ModalContainer = ({ className }) => {
 		<div className={className}>
 			<div className='overlay'>
 				<div className='box'>
-					<h3>{text}</h3>
+					<H3>{text}</H3>
 					<Button onClick={onConfirm}>Да</Button>
 					<Button onClick={onCancel}>Отмена</Button>
 				</div>
@@ -59,8 +59,5 @@ export const Modal = styled(ModalContainer)`
 		background-color: #fff;
 		border-radius: 8px;
 		font-size: 1.5rem;
-		h3 {
-			margin-bottom: 8px;
-		}
 	}
 `;

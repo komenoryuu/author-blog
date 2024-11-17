@@ -1,11 +1,11 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useServerRequest } from '../../hooks';
-import { PostCard } from './post-card';
 import { H2, Loader } from '../../shared';
+import { PostCard } from './post-card';
 import { Pagination } from './pagination';
 import { SearchForm } from './search-form';
-import { PAGINATION_LIMIT } from '../../constants';
 import { getLastPageFromLinks, debounce } from './utils';
+import { PAGINATION_LIMIT } from '../../constants';
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
@@ -18,11 +18,12 @@ const Wrapper = styled.div`
 
 const MainPageContainer = ({ className }) => {
 	const [posts, setPosts] = useState([]);
-	const requestServer = useServerRequest();
 	const [page, setPage] = useState(1);
 	const [lastPage, setLastPate] = useState(1);
 	const [shouldSearch, setShouldSearch] = useState(false);
 	const [searchPhrase, setSearchPhrase] = useState('');
+
+	const requestServer = useServerRequest();
 	const isLoadingData = posts.length === 0 && searchPhrase.length === 0;
 
 	useEffect(() => {

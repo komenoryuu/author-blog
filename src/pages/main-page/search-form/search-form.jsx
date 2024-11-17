@@ -15,7 +15,6 @@ const SearchFormContainer = ({ className, searchPhrase, onChange }) => {
 				<div className='inputWrapper'>
 					<Input
 						value={searchPhrase}
-						width='100%'
 						placeholder='Поиск...'
 						onChange={onChange}
 					/>

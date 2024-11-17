@@ -1,4 +1,4 @@
-import { getRoles } from '../api';
+import { readRoles } from '../api';
 import { sessions } from '../sessions';
 import { ROLE } from '../constants';
 
@@ -14,7 +14,7 @@ export const fetchRoles = async (hash) => {
 		};
 	}
 
-	const roles = await getRoles();
+	const roles = await readRoles();
 
 	return {
 		error: null,

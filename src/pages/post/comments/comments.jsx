@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useServerRequest } from '../../../hooks';
-import { addCommentAsync } from '../../../action';
+import { addCommentAsync } from '../../../state/action';
+import { selectRole, selectUserId } from '../../../state/selectors';
 import { H2, Icon } from '../../../shared';
 import { Comment } from './comment';
-import { selectRole, selectUserId } from '../../../selectors';
 import { ROLE } from '../../../constants';
 import styled from 'styled-components';
 

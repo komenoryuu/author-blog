@@ -34,7 +34,7 @@ export const UserRowContainer = ({
 		setSelectedRoleId(Number(target.value));
 
 	const onRoleSave = (userId, newUserRoleId) =>
-		requestServer('updateUserRole', userId, newUserRoleId).then(() => {
+		requestServer('setUserRole', userId, newUserRoleId).then(() => {
 			setInitialRoleId(newUserRoleId);
 		});
 
