@@ -14,7 +14,7 @@
 - Регистрация, авторизация;
 - Список пользователей с распределением ролей (только для администратора);
 
-## Technical requirements
+## Frontend
 
 - Проект на базе **Create React App**;
 - Настроенный проект: **ESLint, Prettier, EditorConfig**;
@@ -22,17 +22,23 @@
 - Верстка только под Desktop;
 - Типизация: **PropTypes**;
 - Формы с валидацией: **React Hook Form и Yup**;
-- Сетевые запросы: **JSON Server**;
 - Роутинг: **React Router**;
 - Менеджер состояния: **Redux, Redux Thunk, React Redux**, разбивка на под-состояния и несколько редьюсеров;
 
+## Backend
+
+- **Express.js**
+- **Node.js**
+- **JWT, bcrypt**
+- **MongoDB**
+
 ## Running locally
 
-1. Склонируйте репозиторий и перейдите в папку приложения:
+1. Склонируйте репозиторий и перейдите в папку backend приложения:
 ```
 git clone https://github.com/whyisitalwaysAna/author-blog.git
 
-cd author-blog
+cd backend
 ```
 
 2. Установите зависимости:
@@ -40,19 +46,31 @@ cd author-blog
 npm install
 ```
 
-3. Запустите приложение:
+3. Запустите сервер:
 
 ```
 npm run dev
 ```
 
-или используйте другую команду для сборки:
+4. В новом терминале запустите frontend приложение:
 ```
-npm run build
+cd frontend
+
+npm install
+
+npm run dev
 ```
 
-4. В новом терминале запустите сервер:
+Для запуска docker-образа:
 
 ```
-json-server --watch src/db.json --port 5000
+docker build -t author-blog
+
+docker run -p 3006:3001 -d author-blog
+```
+
+**backend .env:
+```
+DB_URL="your/url"
+JWT_SECRET="yoursecret"
 ```
